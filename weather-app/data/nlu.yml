@@ -1,0 +1,69 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: ask_weather
+  examples:  |
+    - What's the weather like today?
+    - Will it rain tomorrow?
+    - Can you tell me the temperature ?
+
+
+- intent: get_weather
+  examples: |
+    - weather in [Bari](city) 
+    - [London](city)
+    - [Berlin](city)
+    - [San Francisco](city)
+    - [New York](city)
+    - [Chicago](city)
+    - What is the weather like in [Paris](city)
+    - [Stockholm](city)
+    - [Tokyo](city)
+    - [Sydney](city)
+    - [Rome](city)
+    - [Madrid](city)
+    - [Lisbon](city)
+    - Does it rain in [Moscow](city)?
+    - [Helsinki](city)
+    - [Prague](city)
+    - [Beijing](city)
+    - [Seoul](city)
+    - [Bangkok](city)
+    - [Dubai](city)
+    - [Cairo](city)
+    - [Cape Town](city)
+    - [New Delhi](city)
+    - [Jakarta](city)
+    - [Kuala Lumpur](city)
+    - [Taipei](city)
+
+
