@@ -1,0 +1,69 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: thanks
+  examples: |
+    - thanks
+    - thank you
+    - appreciate it
+    - thankyou
+    - thanks bot
+    - thank you bot
+    - thank you so much
+    - thanks a lot
+    - thanks very much
+
+- intent: order_pizza
+  examples:  |
+    - Can I get a [pizza](food)
+    - I'd like to have a  [pizza](food)
+    - I want to order a [pizza](food) with [cheese](topping)
+    - I want to order a [pizza](food) with [cheese](topping) and [mushrooms](topping)
+
+
+- intent: order_food
+  examples: |
+    - I want to place an order
+    - Let's order some food
+    - I want to order some food
+
+
+- intent: inform_food
+  examples: |
+    - [steak](food) 
+    - [pasta](food)
+    - [pizza](food)
+    - [salad](food)
+    - [soup](food)   
+    - [sushi](food) 
+    - [burger](food)
+          
