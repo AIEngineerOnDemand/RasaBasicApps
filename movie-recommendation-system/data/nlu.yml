@@ -61,3 +61,8 @@ nlu:
     - I want to watch a [historical](genre) movie
     - Can you suggest a [biography](genre) movie?
     - I'm in the mood for a [sports](genre) movie
+
+
+- regex: \[(\w+)\]\(genre\)
+  examples: |
+    -[$1](genre) movies
