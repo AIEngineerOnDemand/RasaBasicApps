@@ -33,7 +33,7 @@ class ActionRecommendMovie(Action):
                                 "The Babadook", "The Descent", "The Witch", "The Orphanage", 
                                 "The Others", "The Ring", "Get Out", "A Quiet Place", "Hereditary",
                                 "Psycho", "Halloween", "Nightmare on Elm Street", "The Texas Chainsaw Massacre"]
-        elif genre == "romance":
+        elif genre == "romantic":
             recommeded_movie = ["Titanic", "The Notebook", "The Fault in Our Stars", "A Walk to Remember",
                                 "The Vow", "Dear John", "The Lucky One", "The Last Song", 
                                 "The Best of Me", "Safe Haven", "La La Land", "Before Sunrise", "Eternal Sunshine of the Spotless Mind",
