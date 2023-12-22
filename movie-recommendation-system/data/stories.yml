@@ -7,7 +7,6 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: recommend_movie
-  - action: actions_recommend_movie
+  - action: action_recommend_movie
   - intent: goodbye
   - action: utter_goodbye
-
