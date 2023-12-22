@@ -1,3 +1,4 @@
 .rasa/
 .env/
 /models/
+actions/_pycache_/
