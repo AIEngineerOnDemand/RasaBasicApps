@@ -12,8 +12,8 @@ language: en
 
 pipeline: 
   - name: WhitespaceTokenizer
-  - name: CRFEntityExtractor  
   - name: RegexFeaturizer 
+  - name: CRFEntityExtractor  
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
