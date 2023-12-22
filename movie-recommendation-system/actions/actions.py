@@ -18,11 +18,11 @@ class ActionRecommendMovie(Action):
         
         if not genre:
             response = "Sorry, I do not have any movie recommendations for that genre."
-            disparcher.utter_message(text=response)
+            dispatcher.utter_message(text=response)
             return []
         
         # Make API request to fetch movie recommendations based on genre
-        api_key = "your_api_key"
+        api_key = "your_api_key_here"
         
         # Fetch genre ID from TMDb API
         genre_id = self.get_genre_id(genre, api_key)
@@ -33,6 +33,7 @@ class ActionRecommendMovie(Action):
             
             if response.status_code == 200:
                 movies = response.json().get("results",[])
+                print(movies)
                 if movies:
                     response_text = f"Here are some {genre} movies you might like - "
                     for movie in movies[:5]:
