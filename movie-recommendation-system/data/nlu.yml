@@ -39,10 +39,10 @@ nlu:
     - am I talking to a human?
 
 
-intent recommend_movie:
-  use_entities: true
+- intent: recommend_movie
   examples: |
-    - Can you recommend some [action](genre) moevies
-    - I'd like to wathc a [comedy](genre) movie please
+    - Can you recommend some [action](genre) movies
+    - I'd like to watch a [comedy](genre) movie please
     - Do you know any [romantic](genre) movies 
     - I want to watch a [action](genre) movie
+    - What's a good [drama](genre) movie ?C
