@@ -47,6 +47,12 @@ class ActionRecommendMovie(Action):
                                 "Schindler's List", "The Great Gatsby", "The Revenant", "The King's Speech"]
         else :
             recommeded_movie =[]
+            
         if recommeded_movie:
             response = f"Here are some {genre} movies you might like: " + ", ".join(recommeded_movie)
+        else:       
+            response = "Sorry, I do not have any movie recommendations for that genre."
+        
+        dispatcher.utter_message(text=response)
+        
         return []
