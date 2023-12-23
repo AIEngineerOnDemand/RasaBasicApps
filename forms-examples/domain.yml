@@ -22,65 +22,64 @@ slots:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: name
-      intent: my_name
+      - type: from_entity
+        entity: name
+
   tel_number:
     type: text  
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: tel_number
-      intent: mobile_number
+      - type: from_entity
+        entity: tel_number
 
-forms: 
+
+
+forms:
   user_details_form:
-  required_slots:
-    name:
-    - type: from_entity
-      entity: name
-      intent: my_name
-    tel_number:
-    - type: from_entity
-      entity: tel_number
-      intent: mobile_number
+    required_slots:
+      - name
+      - tel_number
+
 
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+    - text: "Hey! How are you?"
 
   utter_greet2:
-  - text: "Hey! How are you? What is your name?"
- 
+    - text: "How are you ? Please provide your information below"
+
   utter_ask_name:
-  - text: "What is your name?"
+    - text: "What is your name ?"
 
-  utter_ask_mobile_number:
-  - text: "What is your mobile number?"
+  utter_ask_number:
+    - text: "What is your mobile number ?"
 
-  utter_collect_info: 
-  - text: "Thanks for the information, {name}. We will contact you on {tel_number}."
+  utter_collect_info:
+    - text: "We have collected the info, Name: {Name}, Number: {Number}"
 
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
-  - text: "Did that help you?"
+    - text: "Did that help you?"
 
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
+  utter_ask_mobile_number:
+    - text: "What is your mobile number?"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+    - text: "I am a bot, powered by Rasa."
 
-actions:  
-  -action_submit
+  utter_goodbye:
+    - text: "Bye"
 
+  utter_happy:
+    - text: "Great, carry on!"
+
+
+actions:
+  - action_submit
 
 session_config:
   session_expiration_time: 60
