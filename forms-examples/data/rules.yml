@@ -20,7 +20,7 @@ rules:
   - active_loop: user_details_form
 
 - rule: Submit Form
-  conditions:
+  condition:
     - active_loop: user_details_form
   steps:
   - action: user_details_form
