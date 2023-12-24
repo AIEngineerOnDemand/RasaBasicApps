@@ -8,8 +8,14 @@ assistant_id: 20231222-152041-nice-billet
 
 # Configuration for Rasa NLU.
 # https://rasa.com/docs/rasa/nlu/components/
-language: en
+# This YAML file contains the configuration settings for Rasa NLU, which is a natural language understanding library for building conversational AI applications. It specifies the language used (English) and the pipeline of components used for processing text data. The pipeline includes tokenizers, featurizers, and classifiers. Each component is defined with its name and optional parameters. The configuration also includes settings for training the DIETClassifier, such as the number of epochs and similarity constraints. The commented out sections show additional components that can be included in the pipeline, such as entity synonym mapping, response selection, and fallback classification.
 
+# Configuration for Rasa Core.
+# https://rasa.com/docs/rasa/core/policies/
+# This YAML file also includes the configuration settings for Rasa Core, which is a dialogue management library for building conversational AI applications. However, the configuration for Rasa Core is not present in the provided code selection.
+# Configuration for Rasa NLU.
+# https://rasa.com/docs/rasa/nlu/components/
+language: en
 pipeline:
 - name: WhitespaceTokenizer
 - name: RegexFeaturizer
@@ -31,9 +37,16 @@ pipeline:
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
+
+# Configuration for the policies used in Rasa Core.
 policies:
-- name: MemoizationPolicy
-- name: TEDPolicy
-  max_history: 5
-  epochs: 100
-- name: RulePolicy
+  # MemoizationPolicy: This policy memorizes the conversations and predicts the next action based on the previous conversation history.
+  - name: MemoizationPolicy
+
+  # TEDPolicy: This policy uses the Transformer Embedding Dialogue (TED) model to predict the next action based on the conversation history.
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+
+  # RulePolicy: This policy allows defining rules to handle specific conversation patterns and trigger predefined actions.
+  - name: RulePolicy
