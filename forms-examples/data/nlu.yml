@@ -37,7 +37,7 @@ nlu:
     - What can you tell me about your  [ai_products](work)?
     - I am interested in high-quality [ai](work)?
 
-- intent: privide_name
+- intent: provide_name
   examples: |
     - My name is [John](name)
     - [John](name) is my name

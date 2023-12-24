@@ -7,7 +7,7 @@ intents:
   - ask_more_information_about_products
   - provide_email
   - provide_phone_number
-  - privide_name
+  - provide_name
   - confirm_interest
 
 
