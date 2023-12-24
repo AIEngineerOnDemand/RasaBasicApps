@@ -35,7 +35,7 @@ class ValidateMyForm(Action):
         "requested_slot" to the name of the unfilled slot. If all required slots are
         filled, it sets the "requested_slot" to None.
         """
-        required_slots = ["name", "tel_number"]
+        required_slots = ["name", "tel_number",'email']
         
         for slot_name in required_slots:
             if tracker.slots.get(slot_name) is None:
