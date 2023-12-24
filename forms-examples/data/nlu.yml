@@ -7,6 +7,18 @@ nlu:
     - Hello
     - Hey
 
+-intent: confirm_interest
+ examples: |
+    - Yes
+    - Sure
+    - Absolutely
+    - Of course
+    - Yes please
+    - Yes, I would like to know more
+    - Yes, I would like to know more about your [products](work)
+    - Yes, I would like to know more about your [chatbot_products](work)
+    - Yes, I would like to know more about your [ai_products](work)
+
 - intent: goodbye
   examples: |
     - Bye
@@ -18,17 +30,18 @@ nlu:
     - Are you a bot?
     - Are you a human?
 
-- intent: ask_about_products
+- intent: ask_more_information_about_products
   examples: |
-    - Tell me about your products
-    - What products do you offer?
-    - I want to know about your products
+    - I want to know more about your [products](work)
+    - Can you tell me more about your  [chatbot_products](work)?
+    - What can you tell me about your  [ai_products](work)?
+    - I am interested in high-quality [ai](work)?
 
-- intent: interested_in_product
+- intent: privide_name
   examples: |
-    - I'm interested in the Rasa chatbot
-    - Can you tell me more about the Rasa chatbot?
-    - I want to buy the Rasa chatbot
+    - My name is [John](name)
+    - [John](name) is my name
+    - You can call me [John](name)
 
 - intent: provide_email
   examples: |
@@ -41,9 +54,3 @@ nlu:
     - My phone number is [1234567890](tel_number)
     - [1234567890](tel_number) is my phone number
     - You can call me at [1234567890](tel_number)
-
-- intent: ask_for_information
-  examples: |
-    - I want to know about [AI engineering](job)
-    - Can you tell me about [AI engineering](job)?
-    - What can you tell me about [AI engineering](job)?
