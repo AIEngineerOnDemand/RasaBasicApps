@@ -82,9 +82,9 @@ nlu:
     - My mobile is [9988776655](number)
 
 
-# - regex: email
-#   examples: |
-#     - [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}
+- regex: email
+  examples: |
+    - [a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+
 
 - regex: number
   examples: |
