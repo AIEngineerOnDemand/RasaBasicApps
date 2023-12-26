@@ -1,30 +1,29 @@
 version: "3.1"
-
 stories:
-
-- story: happy path
+- story: interactive_story_1
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+  - intent: confirm_interest
+  - action: utter_welcome_to_our_products 
+  - intent: ask_more_information_about_products
+  - action: utter_give_more_info_about_products
+    
+  # - story: I want a quote
+  #   steps:
+  #   - intent: greet
+  #   - action: utter_welcome_to_our_products 
+  #   - intent: confirm_interest
+  #   - action: utter_want_to_be_contacted
+  #   - action: contact_form
+  #   - active_loop: contact_form
+  #   - action: user_details_form
+  #   - active_loop: null
+  #   - slot_was_set:
+  #       - requested_slot: null
+  #   - action: action_submit
+  #   - action: utter_goodbye
 
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
 
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+
+
