@@ -9,8 +9,9 @@ language: en
 
 pipeline: 
   - name: WhitespaceTokenizer
-  - name: RegexFeaturizer 
-  - name: RegexEntityExtractor
+  - name: RegexFeaturizer
+  #- name: RegexEntityExtractor
+  - name: CRFEntityExtractor
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
@@ -18,14 +19,13 @@ pipeline:
     min_ngram: 1
     max_ngram: 4
   - name: DIETClassifier
-    entity_recognition: true
     epochs: 100
+    entity_recognition: false
     constrain_similarities: true
   - name: EntitySynonymMapper
   - name: ResponseSelector
     epochs: 100
     constrain_similarities: true
-
 policies:
  - name: MemoizationPolicy
  - name: TEDPolicy
