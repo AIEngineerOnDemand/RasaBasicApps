@@ -3,7 +3,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 
-class ValidateMyForm(Action):
+class ValidateContactForm(Action):
     """
     This class is a custom action to validate a form that collects user details.
     It is a subclass of the `Action` class provided by the Rasa SDK.
@@ -16,7 +16,7 @@ class ValidateMyForm(Action):
 
     def name(self) -> Text:
         """Returns the name of the action."""
-        return "user_details_form"
+        return "contact_form"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -35,7 +35,7 @@ class ValidateMyForm(Action):
         "requested_slot" to the name of the unfilled slot. If all required slots are
         filled, it sets the "requested_slot" to None.
         """
-        required_slots = ["name", "tel_number",'email']
+        required_slots = ["name", "number","email"]
         
         for slot_name in required_slots:
             if tracker.slots.get(slot_name) is None:
@@ -75,13 +75,26 @@ class ActionSubmit(Action):
         A list of events. In this case, it's an empty list because the form submission
         doesn't result in any events.
         """
+        
         response = domain["responses"]["utter_confirm_info"][0]
 
         name = tracker.get_slot("name")
         mobile_number = tracker.get_slot("number")
         email = tracker.get_slot("email")    
+        print(email) 
+        import logging
 
-        response_text = response["text"].format(Name=name, Number=mobile_number, Email=email)
+        # ...
 
+        logging.debug(f"Email slot: {email}")
+
+        response_text_template = response["text"]
+        logging.debug(f"Response text template: {response_text_template}")
+
+        #response_text = response_text_template.format(Name=name, Number=mobile_number, Email=email)
+        
+        
+        #response_text = response["text"].format(Name=name, Number=mobile_number, Email=email)
+        response_text =f"your mai is {email}   "
         dispatcher.utter_message(text =response_text)
         return []
