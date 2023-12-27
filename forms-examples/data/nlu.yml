@@ -58,6 +58,16 @@ nlu:
     - [auaua@dbdd.com](email)
     - [John](name)
     - [Mary](name) 
+    - [Robert](name)
+    - [Sophia](name)
+    - [Emma](name)
+    - [Mike](name)
+    - [Sarah](name)
+    - [Harris](name)
+    - [Luke](name)   
+    - [Pat](name)   
+    - [1234567890](number)
+    - [0987654321](number)
     - You can call me [Harris](name)
     - I am [Sarah](name)
     - Please, call me [Mike](name)
@@ -91,9 +101,8 @@ nlu:
     - \\+?[0-9]{10,15}
 
 
-- regex: \[(\w+)\]\(name\)
-  examples: |
-    -[$1] my names is: (name)    
-    infor
+# - regex: name
+#   examples: |
+#     - [A-Za-z]+
 
 
