@@ -9,8 +9,9 @@ language: en
 
 pipeline: 
   - name: WhitespaceTokenizer
-  - name: RegexFeaturizer
-  #- name: RegexEntityExtractor
+  - name: RegexFeaturizer 
+  - name: RegexEntityExtractor
+   # CRFEntityExtractor is a component used in Rasa Open Source for entity extraction using Conditional Random Fields (CRF) algorithm.
   - name: CRFEntityExtractor
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
@@ -19,13 +20,14 @@ pipeline:
     min_ngram: 1
     max_ngram: 4
   - name: DIETClassifier
-    epochs: 100
     entity_recognition: false
+    epochs: 100
     constrain_similarities: true
   - name: EntitySynonymMapper
   - name: ResponseSelector
     epochs: 100
     constrain_similarities: true
+
 policies:
  - name: MemoizationPolicy
  - name: TEDPolicy
