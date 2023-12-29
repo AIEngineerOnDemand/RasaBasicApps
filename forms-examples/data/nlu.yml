@@ -36,6 +36,7 @@ nlu:
     - why not
     - Can you tell me more about your products?
     - yea
+    - Yep!
 - intent: want_to_be_contacted
   examples: |
     - contact me
@@ -48,6 +49,7 @@ nlu:
     - Yes, I want to be contacted by phone and email
     - Yes, I want to be contacted by email or phone
     - how can i get in touch
+    - coontact me
 - intent: bot_challenge
   examples: |
     - Are you a bot?
@@ -102,6 +104,11 @@ nlu:
     - [alice](name)
     - [+123444555](number)
     - [hagag@hghggh.com](email)
+    - [lulu](name)
+    - [ric](name)
+    - My name is [Mary](name)
+    - [37373737](number)
+    - [gddgdg@djjdj.com](email)
 - intent: goodbye
   examples: |
     - cu
@@ -116,6 +123,7 @@ nlu:
     - see you later
     - ok thanks goodbye
     - perfect! that was enough for today
+    - thanks a lot ... bye
 - regex: email
   examples: |
     - [a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+
