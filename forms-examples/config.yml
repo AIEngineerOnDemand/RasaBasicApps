@@ -1,8 +1,11 @@
 language: en
 
-# write a pipeline thatis good at extracting first names as intents
+# write a pipeline using spacy nlp and language: en_core_web_md
 pipeline:
-- name: WhitespaceTokenizer
+- name: SpacyNLP
+  model: "en_core_web_md"
+- name: SpacyTokenizer
+- name: SpacyFeaturizer
 - name: RegexFeaturizer
 - name: LexicalSyntacticFeaturizer
 - name: CountVectorsFeaturizer
@@ -12,17 +15,45 @@ pipeline:
   max_ngram: 4
 - name: DIETClassifier
   epochs: 100
+  constrain_similarities: true
 - name: EntitySynonymMapper
 - name: ResponseSelector
   epochs: 100
-- name: FallbackClassifier
-  threshold: 0.3
-  ambiguity_threshold: 0.1
+  constrain_similarities: true
+  retrieval_intent: faq
+  deny_suggestion_intent: faq_deny
+  faq_tokenization_flag: true
+  faq_model_name: "bert"
+  faq_model_weights: "bert-base-uncased"
+  faq_model_tokenizer: "bert-base-uncased"
+  faq_max_history: 5
+  faq_model_batch_size: 16
+  faq_model_epochs: 100
+  faq_model_dropout: 0.1
+  faq_model_hidden_layers_sizes:
+  - 256
+  - 128
+  - 64
+  - 32
+  faq_model_loss_type: "cross_entropy"
+  faq_model_optimizer_type: "adam"
+  faq_model_learning_rate: 0.0001
+  faq_model_weight_decay: 0.0
+  faq_model_random_seed: 42
+  faq_model_use_gpu: true
+  faq_model_model_storage: "models"
+  faq_model_model_name: "faq_model"
+  faq_model_model_weights: "faq_model_weights"
+  faq_model_model_tokenizer: "faq_model_tokenizer"
+  faq_model_model_config: "faq_model_config"
+  faq_model_model_architecture: "faq_model_architecture"
+  faq_model_model_intent_classifier: "faq_model_intent_classifier"
+  faq_model_model_response_selector: "faq_model_response_selector"
+  faq_model_model_nlu: "faq_model_nlu"
+  faq_model_model_core: "faq_model_core"
+  faq_model_model_embeddings: "faq_model_embeddings"
+  faq_model_model_transformers: "faq_model_transformers"
 
-
-- name: FallbackClassifier
-  threshold: 0.3
-  ambiguity_threshold: 0.1
 
 policies:
 - name: MemoizationPolicy
@@ -35,3 +66,4 @@ policies:
   core_fallback_threshold: 0.3
   core_fallback_action_name: "action_default_fallback"
   enable_fallback_prediction: true
+assistant_id: 20231229-133740-rectilinear-pitch
