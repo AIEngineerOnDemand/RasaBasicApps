@@ -109,6 +109,7 @@ nlu:
     - My name is [Mary](name)
     - [37373737](number)
     - [gddgdg@djjdj.com](email)
+    - [ric](name)
 - intent: goodbye
   examples: |
     - cu

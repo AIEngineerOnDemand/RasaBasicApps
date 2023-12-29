@@ -117,7 +117,7 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: interactive_story_1
+- story: interactive_story_3
   steps:
   - intent: greet
   - action: utter_greet
@@ -127,23 +127,10 @@ stories:
   - slot_was_set:
     - requested_slot: name
   - intent: inform
-  - intent: inform
-    entities:
-    - type: lulu
-  - action: action_default_fallback
-  - intent: inform
-  - intent: inform
-    entities:
-    - name: lulu
-  - intent: inform
-  - intent: inform
     entities:
     - name: ric
-  - intent: inform
-    entities:
-    - name: Mary
   - slot_was_set:
-    - name: Mary
+    - name: ric
   - action: contact_form
   - slot_was_set:
     - requested_slot: number
@@ -165,9 +152,6 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: action_submit
-  - intent: confirm_interest
-  - action: action_default_fallback
-  - intent: greet
   - intent: confirm_interest
   - action: utter_anything_else
   - intent: ask_more_information_about_products
