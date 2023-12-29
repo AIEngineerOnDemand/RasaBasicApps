@@ -1,3 +1,4 @@
+
 version: "3.1"
 stories:
 - story: interactive_story_1
@@ -5,9 +6,45 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: confirm_interest
-  - action: utter_welcome_to_our_products 
+  - action: utter_welcome_to_our_products
+  - intent: want_to_be_contacted
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: name
+  - intent: inform
+    entities:
+    - name: trevor
+  - slot_was_set:
+    - name: trevor
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '1234567'
+  - slot_was_set:
+    - number: '1234567'
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: travero@gmail.com
+  - slot_was_set:
+    - email: travero@gmail.com
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - action: utter_goodbye
   - intent: ask_more_information_about_products
   - action: utter_give_more_info_about_products
+  - intent: greet
+  - intent: goodbye
+  - action: utter_goodbye
+
 
 - story: tell name
   steps: 
