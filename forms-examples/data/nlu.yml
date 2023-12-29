@@ -61,6 +61,7 @@ nlu:
     - Can you show me some examples of your chatbots for restaurants?
     - Can you show me some examples of your chatbots for e-commerce?
     - Can you show me some examples of your chatbots for commerce?
+    - can you show me an example
 - intent: inform
   examples: |
     - [auaua@dbdd.com](email)
@@ -111,6 +112,7 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - ok thanks goodbye
 
 
 
