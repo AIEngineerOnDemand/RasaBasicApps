@@ -116,3 +116,61 @@ stories:
   - action: utter_give_more_info_about_products
   - intent: goodbye
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: want_to_be_contacted
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: name
+  - intent: inform
+  - intent: inform
+    entities:
+    - type: lulu
+  - action: action_default_fallback
+  - intent: inform
+  - intent: inform
+    entities:
+    - name: lulu
+  - intent: inform
+  - intent: inform
+    entities:
+    - name: ric
+  - intent: inform
+    entities:
+    - name: Mary
+  - slot_was_set:
+    - name: Mary
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '37373737'
+  - slot_was_set:
+    - number: '37373737'
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: gddgdg@djjdj.com
+  - slot_was_set:
+    - email: gddgdg@djjdj.com
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - intent: confirm_interest
+  - action: action_default_fallback
+  - intent: greet
+  - intent: confirm_interest
+  - action: utter_anything_else
+  - intent: ask_more_information_about_products
+  - action: utter_give_more_info_about_products
+  - intent: goodbye
+  - action: utter_goodbye
