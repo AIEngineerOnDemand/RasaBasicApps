@@ -57,6 +57,8 @@ responses:
   - text: What is your email?
   utter_confirm_info:
   - text: 'We have collected the info, Name: {Name}, Number: {Number}, Email: {email}'
+  utter_anything_else:
+  - text: Is there anything else I can help you with?
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_goodbye:
@@ -71,6 +73,7 @@ actions:
 - utter_ask_contact_form_number
 - utter_ask_contact_form_email
 - utter_confirm_info
+- utter_anything_else
 #- validate_contact_form
 session_config:
   session_expiration_time: 60
