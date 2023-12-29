@@ -8,6 +8,15 @@ stories:
   - action: utter_welcome_to_our_products 
   - intent: ask_more_information_about_products
   - action: utter_give_more_info_about_products
+
+- story: tell name
+  steps: 
+  - action: utter_ask_name
+  - intent: inform  
+    entities:
+    - name: "John"  
+
+
     
   # - story: I want a quote
   #   steps:
@@ -23,7 +32,6 @@ stories:
   #       - requested_slot: null
   #   - action: action_submit
   #   - action: utter_goodbye
-
 
 
 
