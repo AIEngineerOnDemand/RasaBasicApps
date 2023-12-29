@@ -77,24 +77,9 @@ class ActionSubmit(Action):
         """
         
         response = domain["responses"]["utter_confirm_info"][0]
-
         name = tracker.get_slot("name")
-        mobile_number = tracker.get_slot("number")
-        email = tracker.get_slot("email")    
-        print(email) 
-        import logging
-
-        # ...
-
-        logging.debug(f"Email slot: {email}")
-
-        response_text_template = response["text"]
-        logging.debug(f"Response text template: {response_text_template}")
-
-        #response_text = response_text_template.format(Name=name, Number=mobile_number, Email=email)
-        
-        
-        #response_text = response["text"].format(Name=name, Number=mobile_number, Email=email)
-        response_text =f"your mai is {email}   "
+        number = tracker.get_slot("number")
+        email = tracker.get_slot("email")   
+        response_text = f"Hello {name}, your number is {number} and your email is {email}."
         dispatcher.utter_message(text =response_text)
         return []

@@ -17,6 +17,14 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - HI
+    - Hello
+    - Hey
+    - Hi
+    - Hello there
+    - Good morning
+    - Good evening
+
 - intent: confirm_interest
   examples: |
     - Yes
@@ -90,6 +98,20 @@ nlu:
     - I can be reached at [6677889900](number)
     - Call me on [4455667788](number)
     - My mobile is [9988776655](number)
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
 
 
 - regex: email
