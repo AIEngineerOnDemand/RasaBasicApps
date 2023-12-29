@@ -63,13 +63,14 @@ responses:
   - text: We'll get in touch with you soon. You'll receive an email from us.
 actions:
 - utter_welcome_to_our_products
-- utter_greet
+- utter_goodbye
 - action_submit
+- utter_give_more_info_about_products
+- utter_greet
 - utter_ask_contact_form_name
 - utter_ask_contact_form_number
 - utter_ask_contact_form_email
 - utter_confirm_info
-- utter_give_more_info_about_products
 #- validate_contact_form
 
 
