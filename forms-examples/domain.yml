@@ -6,6 +6,7 @@ intents:
 - greet
 - inform
 - want_to_be_contacted
+- goodbye
 entities:
 - name
 - number
