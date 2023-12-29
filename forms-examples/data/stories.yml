@@ -38,10 +38,10 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: action_submit
-  - action: utter_goodbye
+  - intent: confirm_interest
+  - action: utter_anything_else
   - intent: ask_more_information_about_products
   - action: utter_give_more_info_about_products
-  - intent: greet
   - intent: goodbye
   - action: utter_goodbye
 
@@ -77,7 +77,6 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: goodbye
   - intent: confirm_interest
   - action: utter_welcome_to_our_products
   - intent: want_to_be_contacted
@@ -111,7 +110,6 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: action_submit
-  - action: utter_goodbye
   - intent: confirm_interest
   - action: utter_welcome_to_our_products
   - intent: ask_more_information_about_products
