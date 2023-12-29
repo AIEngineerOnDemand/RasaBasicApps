@@ -72,3 +72,49 @@ stories:
 
 
 
+
+- story: interactive_story_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: goodbye
+  - intent: confirm_interest
+  - action: utter_welcome_to_our_products
+  - intent: want_to_be_contacted
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: name
+  - intent: inform
+    entities:
+    - name: alice
+  - slot_was_set:
+    - name: alice
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '+123444555'
+  - slot_was_set:
+    - number: '+123444555'
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: hagag@hghggh.com
+  - slot_was_set:
+    - email: hagag@hghggh.com
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - action: utter_goodbye
+  - intent: confirm_interest
+  - action: utter_welcome_to_our_products
+  - intent: ask_more_information_about_products
+  - action: utter_give_more_info_about_products
+  - intent: goodbye
+  - action: utter_goodbye

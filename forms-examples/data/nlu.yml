@@ -1,10 +1,8 @@
 version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
     - hey
-    - hello
     - hello
     - hi
     - hello there
@@ -24,7 +22,6 @@ nlu:
     - Hello there
     - Good morning
     - Good evening
-
 - intent: confirm_interest
   examples: |
     - Yes
@@ -38,6 +35,7 @@ nlu:
     - Yes, give me more information about conversational ai
     - why not
     - Can you tell me more about your products?
+    - yea
 - intent: want_to_be_contacted
   examples: |
     - contact me
@@ -49,6 +47,7 @@ nlu:
     - Yes, I want to be contacted by email and whatsapp
     - Yes, I want to be contacted by phone and email
     - Yes, I want to be contacted by email or phone
+    - how can i get in touch
 - intent: bot_challenge
   examples: |
     - Are you a bot?
@@ -62,19 +61,20 @@ nlu:
     - Can you show me some examples of your chatbots for e-commerce?
     - Can you show me some examples of your chatbots for commerce?
     - can you show me an example
+    - show some
 - intent: inform
   examples: |
     - [auaua@dbdd.com](email)
     - [John](name)
-    - [Mary](name) 
+    - [Mary](name)
     - [Robert](name)
     - [Sophia](name)
     - [Emma](name)
     - [Mike](name)
     - [Sarah](name)
     - [Harris](name)
-    - [Luke](name)   
-    - [Pat](name)   
+    - [Luke](name)
+    - [Pat](name)
     - [1234567890](number)
     - [0987654321](number)
     - You can call me [Harris](name)
@@ -99,7 +99,9 @@ nlu:
     - I can be reached at [6677889900](number)
     - Call me on [4455667788](number)
     - My mobile is [9988776655](number)
-
+    - [alice](name)
+    - [+123444555](number)
+    - [hagag@hghggh.com](email)
 - intent: goodbye
   examples: |
     - cu
@@ -113,20 +115,10 @@ nlu:
     - bye bye
     - see you later
     - ok thanks goodbye
-
-
-
+    - perect! that was enough for today
 - regex: email
   examples: |
     - [a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+
-
 - regex: number
   examples: |
     - \\+?[0-9]{10,15}
-
-
-# - regex: name
-#   examples: |
-#     - [A-Za-z]+
-
-
