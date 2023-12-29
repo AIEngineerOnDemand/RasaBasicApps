@@ -115,7 +115,7 @@ nlu:
     - bye bye
     - see you later
     - ok thanks goodbye
-    - perect! that was enough for today
+    - perfect! that was enough for today
 - regex: email
   examples: |
     - [a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+
