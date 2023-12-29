@@ -28,5 +28,8 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
-
+- rule:  Give more info about products
+  steps:
+  - intent: ask_more_information_about_products
+  - action: utter_give_more_info_about_products
 
