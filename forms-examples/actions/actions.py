@@ -24,9 +24,10 @@ class ValidateContactForm(FormValidationAction):
             required_slots.append("phone")
 
         return required_slots
+    
     async def extract_name(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
+     ) -> Dict[Text, Any]:
         text = tracker.latest_message.get("text")
 
         if not text:
@@ -34,7 +35,29 @@ class ValidateContactForm(FormValidationAction):
             return {"name": None}
 
         return {"name": text}
+    
+     async def extract_number(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        text = tracker.latest_message.get("text")
 
+        if not text:
+            dispatcher.utter_message(template="utter_ask_again")
+            return {"number": None}
+        
+        return {"number": text}
+    
+     async def extract_email(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        text = tracker.latest_message.get("text")
+
+        if not text:
+            dispatcher.utter_message(template="utter_ask_again")
+            return {"email": None}
+        
+        return {"email": text}
+    
 class ActionSubmit(Action):
     """
     This class is a custom action to submit the form.
