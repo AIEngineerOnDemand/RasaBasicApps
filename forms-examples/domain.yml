@@ -66,7 +66,6 @@ responses:
   utter_ask_again:
   - text: I'm sorry, I didn't understand that. Can you rephrase or repeat?
 actions:
-- contact_form
 - utter_greet
 - utter_goodbye
 - utter_welcome_to_our_products

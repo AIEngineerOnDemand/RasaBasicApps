@@ -15,13 +15,17 @@ rules:
 
 - rule: Submit Contact Form
   condition:
+  # Condition that form is active.
     - active_loop: contact_form
   steps:
+  # Form is deactivated
   - action: contact_form
   - active_loop: null
   - slot_was_set:
       - requested_slot: null
+    # The actions we want to run when the form is submitted.    
   - action: action_submit
+
 
 - rule: Say goodbye anytime the user says goodbye
   steps:
