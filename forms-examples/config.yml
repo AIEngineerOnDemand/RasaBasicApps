@@ -18,42 +18,20 @@ pipeline:
   constrain_similarities: true
 - name: EntitySynonymMapper
 - name: ResponseSelector
-  epochs: 100
-  constrain_similarities: true
+  epochs: 200
   retrieval_intent: faq
-  deny_suggestion_intent: faq_deny
-  faq_tokenization_flag: true
-  faq_model_name: "bert"
-  faq_model_weights: "bert-base-uncased"
-  faq_model_tokenizer: "bert-base-uncased"
-  faq_max_history: 5
-  faq_model_batch_size: 16
-  faq_model_epochs: 100
-  faq_model_dropout: 0.1
-  faq_model_hidden_layers_sizes:
-  - 256
-  - 128
-  - 64
-  - 32
-  faq_model_loss_type: "cross_entropy"
-  faq_model_optimizer_type: "adam"
-  faq_model_learning_rate: 0.0001
-  faq_model_weight_decay: 0.0
-  faq_model_random_seed: 42
-  faq_model_use_gpu: true
-  faq_model_model_storage: "models"
-  faq_model_model_name: "faq_model"
-  faq_model_model_weights: "faq_model_weights"
-  faq_model_model_tokenizer: "faq_model_tokenizer"
-  faq_model_model_config: "faq_model_config"
-  faq_model_model_architecture: "faq_model_architecture"
-  faq_model_model_intent_classifier: "faq_model_intent_classifier"
-  faq_model_model_response_selector: "faq_model_response_selector"
-  faq_model_model_nlu: "faq_model_nlu"
-  faq_model_model_core: "faq_model_core"
-  faq_model_model_embeddings: "faq_model_embeddings"
-  faq_model_model_transformers: "faq_model_transformers"
-
+  scale_loss: true
+  use_masked_language_model: false
+  nlu_transformer_size: 512
+  number_of_transformer_layers: 2
+  transformer_size: 512
+  use_tfidf_features: false
+  model_confidence: linear_norm
+  constrain_similarities: true
+  ranking_length: 10
+- name: FallbackClassifier
+  threshold: 0.3
+  ambiguity_threshold: 0.1  
 
 policies:
 - name: MemoizationPolicy
