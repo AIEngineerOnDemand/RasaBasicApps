@@ -40,10 +40,7 @@ stories:
   - action: action_submit
   - intent: confirm_interest
   - action: utter_anything_else
-  - intent: ask_more_information_about_products
-  - action: utter_give_more_info_about_products
-  - intent: goodbye
-  - action: utter_goodbye
+
 
 
 - story: tell name
@@ -110,12 +107,8 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: action_submit
-  - intent: confirm_interest
-  - action: utter_welcome_to_our_products
-  - intent: ask_more_information_about_products
-  - action: utter_give_more_info_about_products
-  - intent: goodbye
-  - action: utter_goodbye
+
+
 
 - story: interactive_story_3
   steps:
