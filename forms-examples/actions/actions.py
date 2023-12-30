@@ -1,48 +1,39 @@
-from typing import Any, Text, Dict, List
-from rasa_sdk import Action, Tracker
+from typing import Any, Text, Dict, List, Optional
+from rasa_sdk import Tracker,Action
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
+from rasa_sdk.forms import FormValidationAction
 
-class ValidateContactForm(Action):
-    """
-    This class is a custom action to validate a form that collects user details.
-    It is a subclass of the `Action` class provided by the Rasa SDK.
-
-    Methods:
-    - name: Returns the name of the action.
-    - run: Validates the form. If any required slots are not filled, it sets the
-           "requested_slot" to the name of the unfilled slot.
-    """
-
+class ValidateContactForm(FormValidationAction):
     def name(self) -> Text:
-        """Returns the name of the action."""
-        return "contact_form"
+        return "validate_contact_form"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        """
-        Validates the form. If any required slots are not filled, it sets the
-        "requested_slot" to the name of the unfilled slot.
-
-        Parameters:
-        - dispatcher: the dispatcher which is used to send messages back to the user.
-        - tracker: the state tracker for the current user.
-        - domain: the bot's current domain.
-
-        Returns:
-        A list of `SlotSet` events. If a required slot is not filled, it sets the
-        "requested_slot" to the name of the unfilled slot. If all required slots are
-        filled, it sets the "requested_slot" to None.
-        """
-        required_slots = ["name", "number","email"]
+    async def required_slots(
+        self,
+        slots_mapped_in_domain: List[Text],
+        dispatcher: "CollectingDispatcher",
+        tracker: "Tracker",
+        domain: "DomainDict",
+    ) -> Optional[List[Text]]:
+        required_slots = slots_mapped_in_domain[:]
         
-        for slot_name in required_slots:
-            if tracker.slots.get(slot_name) is None:
-                return [SlotSet("requested_slot", slot_name)]
-            
-        return [SlotSet("requested_slot", None)]
+        if tracker.get_slot("name") is None:
+            required_slots.append("name")
+        if tracker.get_slot("email") is None:
+            required_slots.append("email")
+        if tracker.get_slot("phone") is None:
+            required_slots.append("phone")
 
+        return required_slots
+    async def extract_name(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        text = tracker.latest_message.get("text")
+
+        if not text:
+            dispatcher.utter_message(template="utter_ask_again")
+            return {"name": None}
+
+        return {"name": text}
 
 class ActionSubmit(Action):
     """
