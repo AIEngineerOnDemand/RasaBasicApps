@@ -6,57 +6,34 @@ from rasa_sdk.forms import FormValidationAction
 class ValidateContactForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_contact_form"
-
+    
     async def required_slots(
         self,
         slots_mapped_in_domain: List[Text],
-        dispatcher: "CollectingDispatcher",
-        tracker: "Tracker",
-        domain: "DomainDict",
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
     ) -> Optional[List[Text]]:
-        required_slots = slots_mapped_in_domain[:]
-        
-        if tracker.get_slot("name") is None:
-            required_slots.append("name")
-        if tracker.get_slot("email") is None:
-            required_slots.append("email")
-        if tracker.get_slot("phone") is None:
-            required_slots.append("phone")
-
-        return required_slots
+        return ["name", "email", "number"]
     
     async def extract_name(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-     ) -> Dict[Text, Any]:
-        text = tracker.latest_message.get("text")
+    ) -> Dict[Text, Any]:
+        name = tracker.get_slot("name")
+        return {"name": name}
 
-        if not text:
-            dispatcher.utter_message(template="utter_ask_again")
-            return {"name": None}
-
-        return {"name": text}
-    
-     async def extract_number(
+    async def extract_number(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        text = tracker.latest_message.get("text")
-
-        if not text:
-            dispatcher.utter_message(template="utter_ask_again")
-            return {"number": None}
-        
-        return {"number": text}
+        number = tracker.get_slot("number")
+        return {"number": number}
     
-     async def extract_email(
+    async def extract_email(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        text = tracker.latest_message.get("text")
-
-        if not text:
-            dispatcher.utter_message(template="utter_ask_again")
-            return {"email": None}
-        
-        return {"email": text}
+        email = tracker.get_slot("email")
+        return {"email": email}
+ 
     
 class ActionSubmit(Action):
     """
@@ -90,10 +67,27 @@ class ActionSubmit(Action):
         doesn't result in any events.
         """
         
-        response = domain["responses"]["utter_confirm_info"][0]
+       # response = domain["responses"]["utter_confirm_info"][0]
         name = tracker.get_slot("name")
         number = tracker.get_slot("number")
         email = tracker.get_slot("email")   
         response_text = f"Hello {name}, your number is {number} and your email is {email}."
         dispatcher.utter_message(text =response_text)
         return []
+    
+    class ActionResetForm(Action):
+        def name(self) -> Text:
+            return "action_reset_form"
+
+        async def run(
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
+        ) -> List[Dict[Text, Any]]:
+            return [
+                {"event": "form", "name": None},  # Deactivate the form
+                {"event": "slot", "name": "name", "value": None},  # Reset the 'name' slot
+                {"event": "slot", "name": "number", "value": None},  # Reset the 'number' slot
+                {"event": "slot", "name": "email", "value": None},  # Reset the 'email' slot
+            ]
