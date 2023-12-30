@@ -33,12 +33,6 @@ rules:
   - intent: ask_more_information_about_products
   - action: utter_give_more_info_about_products
 
-- rule: Ask again if the user does not answer
-  condition:
-  - active_loop: contact_form
-  steps:
-  - action: contact_form
-  - active_loop: contact_form
 
 # add a rule to rephrase the question if the intent has low confidence
 - rule: Ask again if the intent is not recognized
