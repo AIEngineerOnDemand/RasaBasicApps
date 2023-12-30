@@ -1,14 +1,14 @@
 language: en
 
-# write a pipeline using spacy nlp and language: en_core_web_md
+assistant_id: 20231229-133740-rectilinear-pitch
+
+
 pipeline:
-- name: SpacyNLP
-  model: "en_core_web_md"
-- name: SpacyTokenizer
-- name: SpacyFeaturizer
+- name: WhitespaceTokenizer
 - name: RegexFeaturizer
-- name: LexicalSyntacticFeaturizer
-- name: CountVectorsFeaturizer
+- name: LanguageModelFeaturizer
+  model_name: "bert"
+  model_weights: "bert-base-uncased"
 - name: CountVectorsFeaturizer
   analyzer: "char_wb"
   min_ngram: 1
@@ -25,10 +25,6 @@ pipeline:
   nlu_transformer_size: 512
   number_of_transformer_layers: 2
   transformer_size: 512
-  use_tfidf_features: false
-  model_confidence: linear_norm
-  constrain_similarities: true
-  ranking_length: 10
 - name: FallbackClassifier
   threshold: 0.3
   ambiguity_threshold: 0.1  
@@ -44,4 +40,3 @@ policies:
   core_fallback_threshold: 0.3
   core_fallback_action_name: "action_default_fallback"
   enable_fallback_prediction: true
-assistant_id: 20231229-133740-rectilinear-pitch
