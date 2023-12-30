@@ -63,6 +63,8 @@ responses:
   - text: I am a bot, powered by Rasa.
   utter_goodbye:
   - text: We'll get in touch with you soon. You'll receive an email from us.
+  utter_ask_again: 
+  - text: I'm sorry, I didn't understand that. Can you rephrase or repeat? 
 actions:
 - utter_goodbye
 - utter_welcome_to_our_products
@@ -74,6 +76,7 @@ actions:
 - utter_ask_contact_form_email
 - utter_confirm_info
 - utter_anything_else
+- utter_ask_again
 #- validate_contact_form
 session_config:
   session_expiration_time: 60
