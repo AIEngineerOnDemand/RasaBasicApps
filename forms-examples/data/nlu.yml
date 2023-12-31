@@ -22,6 +22,34 @@ nlu:
     - Hello there
     - Good morning
     - Good evening
+- intent: deny
+  examples: |
+    - no
+    - nah
+    - no thanks
+    - no thank you
+    - not today
+    - sorry not today
+    - nope
+    - nope not today
+    - nope not interested
+    - no thanks not interested
+    - no thanks not today
+    - no that's incorrect
+    - no that's wrong
+    - no that's not right
+    - no that's not correct
+    - no that's not what i want
+    - no that's not what i'm looking for
+    - no that's not what i'm looking for today
+    - no that's not what i'm looking for right now
+    - no my name is [frank](name)
+    - no my email is [lola@example.co](email)
+    - no my phone number is [1234567890](number)
+
+
+
+       
 - intent: confirm_interest
   examples: |
     - Yes
