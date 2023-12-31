@@ -1,12 +1,34 @@
 from typing import Any, Text, Dict, List, Optional
-from rasa_sdk import Tracker,Action
+from rasa_sdk import Tracker, Action
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
+
+
+class ActionConfirmName(Action):
+    def name(self) -> Text:
+        return "action_confirm_name"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "affirm":
+            return [SlotSet("name", tracker.get_slot("confirm_name")), SlotSet("confirm_name", None)]
+        elif intent == "deny":
+            return [SlotSet("confirm_name", None), FollowupAction("contact_form")]
+
 
 class ValidateContactForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_contact_form"
-    
+  
+    async def deactivate(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(text="Okay, we have cancelled the form.")
+        return await super().deactivate(dispatcher, tracker, domain)
     async def required_slots(
         self,
         slots_mapped_in_domain: List[Text],
@@ -15,19 +37,25 @@ class ValidateContactForm(FormValidationAction):
         domain: Dict[Text, Any],
     ) -> Optional[List[Text]]:
         return ["name", "email", "number"]
+    async def validate_name(
+          self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        ) -> Dict[Text, Any]:
+            # Confirm the name with the user
+            #confirmation = tracker.latest_message.get('intent', {}).get('name')
+            name = tracker.get_slot("name")
+            intent = tracker.get_intent_of_latest_message()
+            print(intent)
+            if not name and intent == "inform":
+                 user_message = tracker.latest_message.get('text')
+                 dispatcher.utter_message(text=f"Your name is {user_message}?")
+                 return {"name": None, "confirm_name": user_message}
+            return {"name": None, "confirm_name": None}
     
-    async def extract_name(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        #add code that check if entity extraction failed
-        name = tracker.get_slot("name")
-        if not name:
-            dispatcher.utter_message(template="utter_ask_name")
-            #set slot to the next input after utter_ask_name
-
-            return {"name": None}
-        return {"name": name}
-
+    
     async def extract_number(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
