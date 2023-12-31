@@ -13,13 +13,13 @@ rules:
   - action: contact_form
   - active_loop: contact_form
 
-- rule: Validate form when user provides information
-  condition:
-  - active_loop: contact_form
-  steps:
-  - intent: inform
-  - action: validate_contact_form
-  - active_loop: contact_form  
+# - rule: Validate form when user provides information
+#   condition:
+#   - active_loop: contact_form
+#   steps:
+#   - intent: inform
+#   - action: validate_contact_form
+#   - active_loop: contact_form  
 
 - rule: Confirm name
   condition:
