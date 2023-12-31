@@ -19,7 +19,13 @@ class ValidateContactForm(FormValidationAction):
     async def extract_name(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
+        #add code that check if entity extraction failed
         name = tracker.get_slot("name")
+        if not name:
+            dispatcher.utter_message(template="utter_ask_name")
+            #set slot to the next input after utter_ask_name
+
+            return {"name": None}
         return {"name": name}
 
     async def extract_number(
