@@ -88,9 +88,9 @@ actions:
 - utter_confirm_info
 - utter_anything_else
 - utter_ask_again
-- validate_contact_form
 - utter_default_ask_rephrase
 - action_confirm_name
+- validate_contact_form
 
 session_config:
   session_expiration_time: 60
