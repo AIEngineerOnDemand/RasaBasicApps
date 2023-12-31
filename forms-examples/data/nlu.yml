@@ -46,11 +46,7 @@ nlu:
     - no my name is [frank](name)
     - no my email is [lola@example.co](email)
     - no my phone number is [1234567890](number)
-
-
-
-       
-- intent: confirm_interest
+- intent: affirm
   examples: |
     - Yes
     - Sure
@@ -153,6 +149,20 @@ nlu:
     - ok thanks goodbye
     - perfect! that was enough for today
     - thanks a lot ... bye
+    - stop
+    - end
+    - cancel
+    - abort
+    - quit
+    - nevermind
+    - I changed my mind
+    - I don't want to continue
+    - I don't want to continue anymore
+    - I don't want to continue with this form
+    - I don't want to continue with this
+    - I don't want to continue with this anymore
+    - I don't want to continue with this form anymore
+
 - regex: email
   examples: |
     - [a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+
