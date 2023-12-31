@@ -2,7 +2,7 @@ version: '3.1'
 intents:
 - ask_more_information_about_products
 - bot_challenge
-- confirm_interest
+- affirm
 - goodbye
 - greet
 - inform
@@ -13,6 +13,10 @@ entities:
 - email
 - number
 slots:
+  confirm_name:
+    type: text
+    influence_conversation: false
+    mappings: []
   name:
     type: text
     influence_conversation: true
@@ -69,6 +73,8 @@ responses:
   - text: I'm sorry, I didn't understand that. Can you rephrase or repeat?
   utter_default:  # This is a built-in utterance
   - text: Sorry, I didn't get that. Can you rephrase?
+  utter_default_ask_rephrase:  # This is a built-in utterance
+  - text: Sorry can you rephrase?
 actions:
 - action_reset_form
 - utter_greet
@@ -83,7 +89,9 @@ actions:
 - utter_anything_else
 - utter_ask_again
 - validate_contact_form
-- validate_entity_form
+- utter_default_ask_rephrase
+- action_confirm_name
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
