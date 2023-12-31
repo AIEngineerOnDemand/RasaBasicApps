@@ -2,7 +2,8 @@ from typing import Any, Text, Dict, List, Optional
 from rasa_sdk import Tracker, Action
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
-
+from rasa_sdk.events import SlotSet,FollowupAction
+from rasa_sdk.interfaces import EventType
 
 class ActionConfirmName(Action):
     def name(self) -> Text:
@@ -23,8 +24,7 @@ class ActionConfirmName(Action):
 
 class ValidateContactForm(FormValidationAction):
     def name(self) -> Text:
-        return "validate_contact_form"
-  
+        return "contact_form"
     async def deactivate(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
         dispatcher.utter_message(text="Okay, we have cancelled the form.")
@@ -37,38 +37,44 @@ class ValidateContactForm(FormValidationAction):
         domain: Dict[Text, Any],
     ) -> Optional[List[Text]]:
         return ["name", "email", "number"]
+    # async def extract_name(
+    #     self,
+    #     slot_value: Any,
+    #     dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any],
+    # ) -> Dict[Text, Any]:
+    #     # Your existing validate method
+    #         name = tracker.get_slot("name")
+    #         intent = tracker.get_intent_of_latest_message()
+    #         if not name:
+    #             if intent == "inform":
+    #                 print("miao")
+    #                 user_message = tracker.latest_message.get('text')
+    #                 dispatcher.utter_message(text=f"Your name is {user_message}?")
+    #                 return {"name": user_message, "confirm_name": user_message}
+    #             else:
+    #                 return {"name": None, "confirm_name": None}
     async def validate_name(
-          self,
+        self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: Dict[Text, Any],
-        ) -> Dict[Text, Any]:
-            # Confirm the name with the user
-            #confirmation = tracker.latest_message.get('intent', {}).get('name')
-            name = tracker.get_slot("name")
-            intent = tracker.get_intent_of_latest_message()
-            print(intent)
-            if not name and intent == "inform":
-                 user_message = tracker.latest_message.get('text')
-                 dispatcher.utter_message(text=f"Your name is {user_message}?")
-                 return {"name": None, "confirm_name": user_message}
+    ) -> Dict[Text, Any]:
+        intent = tracker.latest_message['intent'].get('name')
+        print('intent,slot_value',intent,slot_value)
+        print('not slot_value', not slot_value)
+        print('intent == "inform"', intent == "inform")
+        print('not slot_value and intent == "inform"',(not slot_value and intent == "inform"))
+        if not slot_value and intent == "inform":
+            slot_value = tracker.latest_message.get('text')
+            print('retrieved text',slot_value)
+        if intent == "inform":
+            dispatcher.utter_message(text=f"Your name is {slot_value}?")
+            return {"name": slot_value, "confirm_name": slot_value}
+        else:
             return {"name": None, "confirm_name": None}
-    
-    
-    async def extract_number(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        number = tracker.get_slot("number")
-        return {"number": number}
-    
-    async def extract_email(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        email = tracker.get_slot("email")
-        return {"email": email}
- 
-    
 class ActionSubmit(Action):
     """
     This class is a custom action to submit the form.
