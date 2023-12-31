@@ -49,9 +49,11 @@ stories:
   - intent: inform  
     entities:
     - name: "John"  
-
-
-    
+  - action: utter_want_to_be_contacted  
+  - intent: confirm_interest
+  - action: contact_form
+  - active_loop: contact_form
+  
   # - story: I want a quote
   #   steps:
   #   - intent: greet
