@@ -7,10 +7,38 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Activate Contact Form
+- rule: Activate contact form
   steps:
   - intent: want_to_be_contacted
   - action: contact_form
+  - active_loop: contact_form
+
+- rule: Validate form when user provides information
+  condition:
+  - active_loop: contact_form
+  steps:
+  - intent: inform
+  - action: validate_contact_form
+  - active_loop: contact_form  
+
+- rule: Confirm name
+  condition:
+  - active_loop: contact_form
+  - slot_was_set:
+    - confirm_name: 
+  steps:
+  - intent: affirm
+  - action: action_confirm_name
+  - active_loop: contact_form
+
+- rule: Deny name
+  condition:
+  - active_loop: contact_form
+  - slot_was_set:
+    - confirm_name: 
+  steps:
+  - intent: deny
+  - action: action_confirm_name
   - active_loop: contact_form
 
 - rule: Submit Contact Form
@@ -26,12 +54,6 @@ rules:
     # The actions we want to run when the form is submitted.    
   - action: action_submit
 
-
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
-
 - rule:  Give more info about products
   steps:
   - intent: ask_more_information_about_products
@@ -45,19 +67,28 @@ rules:
    - action: utter_ask_again
 
 
-- rule: Reset form when entity extraction fails
-  condition:
-  - active_loop: contact_form
-  steps:
-  - intent: inform  # The user provides information
-  - action: validate_contact_form
-  - slot_was_set:
-    - requested_slot: null  # Entity extraction failed
-  - action: action_reset_form  # Reset the formrasa shell --deg
+# - rule: Reset form when entity extraction fails
+#   condition:
+#   - active_loop: contact_form
+#   steps:
+#   - intent: inform  # The user provides information
+#   - action: validate_contact_form
+#   - slot_was_set:
+#     - requested_slot: null  # Entity extraction failed
+#   - action: action_reset_form  # Reset the formrasa shell --deg
 
-- rule: Reset form if the user says 'no' when asked for affirmation
+# - rule: Reset form if the user says 'no' when asked for affirmation
+#   condition:
+#   - active_loop: contact_form
+#   steps:
+#   - intent: deny
+#   - action: action_reset_form
+
+- rule: User says stop or goodbye anytime during the form
   condition:
-  - active_loop: contact_form
+  - active_loop: validate_contact_form
   steps:
-  - intent: deny
-  - action: action_reset_form
+  - intent: goodbye
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
