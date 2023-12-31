@@ -5,7 +5,7 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: confirm_interest
+  - intent: affirm
   - action: utter_welcome_to_our_products
   - intent: want_to_be_contacted
   - action: contact_form
@@ -38,7 +38,7 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: action_submit
-  - intent: confirm_interest
+  - intent: affirm
   - action: utter_anything_else
 
 
@@ -50,7 +50,7 @@ stories:
     entities:
     - name: "John"  
   - action: utter_want_to_be_contacted  
-  - intent: confirm_interest
+  - intent: affirm
   - action: contact_form
   - active_loop: contact_form
   
@@ -58,7 +58,7 @@ stories:
   #   steps:
   #   - intent: greet
   #   - action: utter_welcome_to_our_products 
-  #   - intent: confirm_interest
+  #   - intent: affirm
   #   - action: utter_want_to_be_contacted
   #   - action: contact_form
   #   - active_loop: contact_form
@@ -76,7 +76,7 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: confirm_interest
+  - intent: affirm
   - action: utter_welcome_to_our_products
   - intent: want_to_be_contacted
   - action: contact_form
@@ -147,7 +147,7 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: action_submit
-  - intent: confirm_interest
+  - intent: affirm
   - action: utter_anything_else
   - intent: ask_more_information_about_products
   - action: utter_give_more_info_about_products
