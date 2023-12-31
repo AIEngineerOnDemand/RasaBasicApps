@@ -45,3 +45,19 @@ rules:
    - action: utter_ask_again
 
 
+- rule: Reset form when entity extraction fails
+  condition:
+  - active_loop: contact_form
+  steps:
+  - intent: inform  # The user provides information
+  - action: validate_contact_form
+  - slot_was_set:
+    - requested_slot: null  # Entity extraction failed
+  - action: action_reset_form  # Reset the formrasa shell --deg
+
+- rule: Reset form if the user says 'no' when asked for affirmation
+  condition:
+  - active_loop: contact_form
+  steps:
+  - intent: deny
+  - action: action_reset_form
