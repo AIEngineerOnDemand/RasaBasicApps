@@ -20,8 +20,11 @@ slots:
   first_name:
     type: text
     influence_conversation: true
-    mappings: 
-    - type: custom
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: contact_form
+           requested_slot: first_name
   number:
     type: text
     influence_conversation: true
