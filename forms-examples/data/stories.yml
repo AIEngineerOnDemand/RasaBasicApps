@@ -2,12 +2,12 @@
   steps:
   - intent: inform
     entities:
-    - entity_first_name: "John"
+    - entity_first_name: John
   - slot_was_set:
-    - entity_first_name: "John"
-  - action: utter_want_to_be_contacted
+    - confirm_first_name: John
+  - action: utter_welcome_to_our_products
   - intent: affirm
-  - action: action_set_first_name
+  - action: action_check_if_first_name_is_known
   - action: action_check_confirm_first_name
   - intent: affirm
   - action: action_set_first_name
