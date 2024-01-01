@@ -1,3 +1,7 @@
+version: "3.1"
+
+
+stories:
 - story: specify name
   steps:
   - intent: inform
@@ -11,3 +15,8 @@
   - action: action_check_confirm_first_name
   - intent: affirm
   - action: action_set_first_name
+
+- story: happy_path
+  steps:
+  - intent: greet
+  - action: utter_greet
