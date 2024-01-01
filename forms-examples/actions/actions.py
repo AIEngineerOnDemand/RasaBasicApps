@@ -21,12 +21,12 @@ class ActionCheckIfFirstNameIsKnown(Action):
 
         confirm_first_name = tracker.get_slot('confirm_first_name')
 
-        if confirm_first_name:
-            # perform the action to confirm the first name
-            return [FollowupAction("action_check_confirm_first_name")]
-        else:
-            # start the contact form
-            return [FollowupAction("contact_form")]
+        if not confirm_first_name:
+    # start the contact form
+             return [FollowupAction("contact_form")]
+        else: 
+            # do nothing
+            pass 
 
 class ActionCheckConfirmFirstName(Action):
 
@@ -63,15 +63,13 @@ class ActionSetFirstName(Action):
 
         confirm_first_name = tracker.get_slot('confirm_first_name')
         
-         # Get the last executed action
-        last_event = tracker.get_last_event_for('action')
-
-        # Check if the last executed action is 'action_check_if_first_name_is_known'
-        if last_event and last_event['name'] == 'action_check_if_first_name_is_known':
+        if confirm_first_name:
             # Perform the action to set the first name
-             return [SlotSet("first_name", confirm_first_name), SlotSet("confirm_first_name", None)]
-        else:  
-             pass
+            print('collecting',confirm_first_name)
+            return [SlotSet("first_name", confirm_first_name), SlotSet("confirm_first_name", None),  
+                    FollowupAction("contact_form")]
+        else:
+            pass    
 
 
 class ValidateContactForm(FormValidationAction):
@@ -126,7 +124,7 @@ class ValidateContactForm(FormValidationAction):
         prev_mentioned_name = clean_name(prev_mentioned_name) if prev_mentioned_name else None
 
         slot_value = clean_name(slot_value)
-            if len(slot_value) < 3:
+        if len(slot_value) < 3:
                 dispatcher.utter_message(text="Your first_name should be at least 3 characters long.")
                 return {"first_name": None, "confirm_first_name": None}
         if slot_value== prev_mentioned_name:
