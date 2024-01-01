@@ -10,35 +10,18 @@ rules:
 - rule: Activate contact form
   steps:
   - intent: want_to_be_contacted
-  - action: contact_form
-  - active_loop: contact_form
+  - action: action_check_if_first_name_is_known
 
-# - rule: Validate form when user provides information
-#   condition:
-#   - active_loop: contact_form
-#   steps:
-#   - intent: inform
-#   - action: validate_contact_form
-#   - active_loop: contact_form  
-
-- rule: Confirm name
+- rule: User affirms first name
   condition:
-  - active_loop: contact_form
-  - slot_was_set:
-    - confirm_first_name: 
+    - slot_was_set:
+        - confirm_first_name: true
   steps:
   - intent: affirm
-  - action: action_confirm_first_name
-  - active_loop: contact_form
-
-- rule: Deny name
-  condition:
-  - active_loop: contact_form
-  - slot_was_set:
-    - confirm_first_name: 
-  steps:
-  - intent: deny
-  - action: action_confirm_first_name
+  # this action sets the slot first_name to the value of the slot confirm_first_name, 
+  #and when if the user affirms after being asked for confirmation
+  - action: action_set_first_name 
+  - action: contact_form
   - active_loop: contact_form
 
 - rule: Submit Contact Form
@@ -67,22 +50,12 @@ rules:
    - action: utter_ask_again
 
 
-# - rule: Reset form when entity extraction fails
-#   condition:
-#   - active_loop: contact_form
-#   steps:
-#   - intent: inform  # The user provides information
-#   - action: validate_contact_form
-#   - slot_was_set:
-#     - requested_slot: null  # Entity extraction failed
-#   - action: action_reset_form  # Reset the formrasa shell --deg
-
-# - rule: Reset form if the user says 'no' when asked for affirmation
-#   condition:
-#   - active_loop: contact_form
-#   steps:
-#   - intent: deny
-#   - action: action_reset_form
+- rule: Reset form if the user says 'no' when asked for affirmation
+  condition:
+  - active_loop: contact_form
+  steps:
+  - intent: deny
+  - action: action_reset_form
 
 - rule: User says stop or goodbye anytime during the form
   condition:
