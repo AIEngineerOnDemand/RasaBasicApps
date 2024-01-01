@@ -25,20 +25,20 @@ rules:
   condition:
   - active_loop: contact_form
   - slot_was_set:
-    - confirm_name: 
+    - confirm_first_name: 
   steps:
   - intent: affirm
-  - action: action_confirm_name
+  - action: action_confirm_first_name
   - active_loop: contact_form
 
 - rule: Deny name
   condition:
   - active_loop: contact_form
   - slot_was_set:
-    - confirm_name: 
+    - confirm_first_name: 
   steps:
   - intent: deny
-  - action: action_confirm_name
+  - action: action_confirm_first_name
   - active_loop: contact_form
 
 - rule: Submit Contact Form
