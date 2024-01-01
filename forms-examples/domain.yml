@@ -79,12 +79,13 @@ responses:
   utter_default_ask_rephrase:
   - text: Sorry can you rephrase?
 actions:
+- utter_welcome_to_our_products
+- utter_greet
+- action_check_confirm_first_name
 - action_check_if_first_name_is_known
 - action_set_first_name
-- action_check_confirm_first_name
-- utter_welcome_to_our_products
-- action_reset_form
 - action_submit
+- action_reset_form
 - validate_contact_form
 - utter_want_to_be_contacted
 session_config:
