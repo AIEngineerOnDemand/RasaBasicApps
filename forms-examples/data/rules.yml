@@ -1,32 +1,40 @@
-version: "3.1"
-
 rules:
 
+# Rule 1: Respond to user challenges
+# This rule is triggered when the user's intent is 'bot_challenge'.
+# The bot responds by executing the 'utter_iamabot' action.
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
 
+# Rule 2: Activate contact form
+# This rule is triggered when the user's intent is 'want_to_be_contacted'.
+# The bot responds by executing the 'action_check_if_first_name_is_known' action.
 - rule: Activate contact form
   steps:
   - intent: want_to_be_contacted
   - action: action_check_if_first_name_is_known
 
+# Rule 3: User affirms first name
+# This rule is triggered when the user's intent is 'affirm' and the 'confirm_first_name' slot is set to true.
+# The bot responds by executing the 'action_set_first_name' action, which sets the 'first_name' slot to the value of the 'confirm_first_name' slot.
+# Then, the 'contact_form' is activated and the bot enters the 'contact_form' loop.
 - rule: User affirms first name
   condition:
     - slot_was_set:
         - confirm_first_name: true
   steps:
   - intent: affirm
-  # this action sets the slot first_name to the value of the slot confirm_first_name, 
-  #and when if the user affirms after being asked for confirmation
   - action: action_set_first_name 
   - action: contact_form
   - active_loop: contact_form
 
+# Rule 4: Submit Contact Form
+# This rule is triggered when the 'contact_form' loop is active.
+# (Add more details about what happens when this rule is triggered)
 - rule: Submit Contact Form
   condition:
-  # Condition that form is active.
     - active_loop: contact_form
   steps:
   # Form is deactivated
