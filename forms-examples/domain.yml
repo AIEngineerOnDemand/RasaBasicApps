@@ -9,20 +9,19 @@ intents:
 - want_to_be_contacted
 - deny
 entities:
-- name
+- first_name
 - email
 - number
 slots:
-  confirm_name:
+  confirm_first_name:
     type: text
     influence_conversation: false
     mappings: []
-  name:
+  first_name:
     type: text
     influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: name
+    mappings: 
+    - type: custom
   number:
     type: text
     influence_conversation: true
@@ -38,10 +37,9 @@ slots:
 forms:
   contact_form:
     required_slots:
-    - name
+    - first_name
     - number
     - email
-
 responses:
   utter_greet:
   - text: How are you? Would you like to know about our products?
@@ -55,7 +53,7 @@ responses:
   - text: Would you like to get a quote?
   utter_submit:
   - text: I will now order a pizza for you!
-  utter_ask_contact_form_name:
+  utter_ask_contact_form_first_name:
   - text: What is your name?
   utter_ask_contact_form_number:
   - text: What is your mobile number?
@@ -89,8 +87,9 @@ actions:
 - utter_anything_else
 - utter_ask_again
 - utter_default_ask_rephrase
-- action_confirm_name
+- action_confirm_first_name
 - validate_contact_form
+
 
 session_config:
   session_expiration_time: 60
