@@ -61,6 +61,7 @@ nlu:
     - Can you tell me more about your products?
     - yea
     - Yep!
+    - sure
 - intent: want_to_be_contacted
   examples: |
     - contact me
@@ -133,7 +134,7 @@ nlu:
     - My first_name is [Mary](first_name)
     - [37373737](number)
     - [gddgdg@djjdj.com](email)
-    - [ric](first_name)
+    - My name is [John](first_name)
 - intent: goodbye
   examples: |
     - cu
@@ -162,7 +163,6 @@ nlu:
     - I don't want to continue with this
     - I don't want to continue with this anymore
     - I don't want to continue with this form anymore
-
 - regex: email
   examples: |
     - [a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+
