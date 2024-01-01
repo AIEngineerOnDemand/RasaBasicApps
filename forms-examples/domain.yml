@@ -12,11 +12,15 @@ entities:
 - first_name
 - email
 - number
+- confirm_first_name
 slots:
   confirm_first_name:
     type: text
-    influence_conversation: false
-    mappings: []
+    influence_conversation: true
+    mappings: 
+      - type: from_entity
+        intent: inform
+        entity: first_name     
   first_name:
     type: text
     influence_conversation: true
@@ -40,6 +44,7 @@ slots:
 forms:
   contact_form:
     required_slots:
+    - confirm_first_name
     - first_name
     - number
     - email
@@ -54,8 +59,6 @@ responses:
   - text: Are you sure you want to stop the form?
   utter_want_to_be_contacted:
   - text: Would you like to get a quote?
-  utter_submit:
-  - text: I will now order a pizza for you!
   utter_ask_contact_form_first_name:
   - text: What is your name?
   utter_ask_contact_form_number:
@@ -63,7 +66,7 @@ responses:
   utter_ask_contact_form_email:
   - text: What is your email?
   utter_confirm_info:
-  - text: 'We have collected the info, Name: {Name}, Number: {Number}, Email: {email}'
+  - text: 'We have collected the info, Name: {first_name}, Number: {number}, Email: {email}'
   utter_anything_else:
   - text: Is there anything else I can help you with?
   utter_iamabot:
@@ -83,15 +86,17 @@ actions:
 - utter_welcome_to_our_products
 - action_submit
 - utter_give_more_info_about_products
-- utter_ask_contact_form_name
+- utter_ask_contact_form_first_name
 - utter_ask_contact_form_number
 - utter_ask_contact_form_email
 - utter_confirm_info
 - utter_anything_else
 - utter_ask_again
 - utter_default_ask_rephrase
-- action_confirm_first_name
+- action_check_confirm_first_name
 - validate_contact_form
+- action_set_first_name
+- action_check_if_first_name_is_known
 
 
 session_config:
