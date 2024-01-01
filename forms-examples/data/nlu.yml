@@ -63,6 +63,7 @@ nlu:
     - Yep!
     - sure
     - yes
+    - yes please
 - intent: want_to_be_contacted
   examples: |
     - contact me
@@ -76,6 +77,7 @@ nlu:
     - Yes, I want to be contacted by email or phone
     - how can i get in touch
     - coontact me
+ 
 - intent: bot_challenge
   examples: |
     - Are you a bot?
@@ -136,7 +138,7 @@ nlu:
     - [37373737](number)
     - [gddgdg@djjdj.com](email)
     - My name is [John](entity_first_name)
- 
+    -
 - intent: goodbye
   examples: |
     - cu
