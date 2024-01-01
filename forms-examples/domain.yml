@@ -9,10 +9,9 @@ intents:
 - inform
 - want_to_be_contacted
 entities:
-- first_name
+- entity_first_name
 - email
 - number
-- confirm_first_name
 slots:
   confirm_first_name:
     type: text
@@ -20,7 +19,7 @@ slots:
     mappings:
     - type: from_entity
       intent: inform
-      entity: first_name
+      entity: entity_first_name
   first_name:
     type: text
     influence_conversation: true
@@ -80,24 +79,14 @@ responses:
   utter_default_ask_rephrase:
   - text: Sorry can you rephrase?
 actions:
-- action_check_confirm_first_name
-- action_set_first_name
-- utter_want_to_be_contacted
-- action_reset_form
-- utter_greet
-- utter_goodbye
-- utter_welcome_to_our_products
-- action_submit
-- utter_give_more_info_about_products
-- utter_ask_contact_form_first_name
-- utter_ask_contact_form_number
-- utter_ask_contact_form_email
-- utter_confirm_info
-- utter_anything_else
-- utter_ask_again
-- utter_default_ask_rephrase
-- validate_contact_form
 - action_check_if_first_name_is_known
+- action_set_first_name
+- action_check_confirm_first_name
+- utter_welcome_to_our_products
+- action_reset_form
+- action_submit
+- validate_contact_form
+- utter_want_to_be_contacted
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
