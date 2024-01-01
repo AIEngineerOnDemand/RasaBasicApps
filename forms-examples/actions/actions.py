@@ -43,13 +43,10 @@ class ValidateContactForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         text_of_last_user_message = tracker.latest_message.get("text")
         intent = tracker.latest_message['intent'].get('name')
-        print('intent',intent)
-        print('text_of_last_user_message',text_of_last_user_message)
         if intent == "inform":
             return  {"first_name": None , "confirm_first_name": text_of_last_user_message}
         else:
             return {"first_name": None, "confirm_first_name": None}
-
     async def validate_first_name(
         self,
         slot_value: Any,
@@ -57,40 +54,14 @@ class ValidateContactForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        intent = tracker.latest_message['intent'].get('name')
-        print('intent,slot_value',intent,slot_value)
-        print('not slot_value', not slot_value)
-        print('intent == "inform"', intent == "inform")
-        print('not slot_value and intent == "inform"',(not slot_value and intent == "inform"))
-        if not slot_value and intent == "inform":
-            slot_value = tracker.latest_message.get('text')
-            print('retrieved text',slot_value)
-        if intent == "inform":
-            dispatcher.utter_message(text=f"Your first_name is {slot_value}?")
-            return {"first_name": slot_value, "confirm_first_name": slot_value}
+        text_of_last_user_message = tracker.latest_message.get("text")
+        intent = tracker.latest_message['intent'].get('name')       
+        if intent == "inform" and slot_value is None:
+            dispatcher.utter_message(text=f"Your first_name is {text_of_last_user_message}?")
+            return {"first_name": None, "confirm_first_name": text_of_last_user_message}
         else:
             return {"first_name": None, "confirm_first_name": None}
-#     def validate_first_name(
-#         self,
-#         value: Text,
-#         dispatcher: "CollectingDispatcher",
-#         tracker: "Tracker",
-#         domain: "DomainDict",
-#     ) -> List[EventType]:
-#         returned_slots = {}
-#         intent = tracker.get_intent_of_latest_message()
-#         if value is not None :
-#             returned_slots = {"first_name": value, "confirm_first_name": value}
-#         else:
-#             returned_slots = {REQUESTED_SLOT: FIRST_NAME}
-#             if value is None and  intent == "inform":
-#                 user_message = tracker.latest_message.get('text')
-#                 dispatcher.utter_message(text=f"Your first_name is {user_message}?")
-#                 value = user_message
-#                 returned_slots = {"first_name": value, "confirm_first_name": value}
-#             if value is None and  intent != "inform":
-#                 returned_slots = {"first_name": None, "confirm_first_name": None}
-#         return returned_slots
+
   
   
     
