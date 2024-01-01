@@ -41,6 +41,26 @@ policies:
   epochs: 100
   constrain_similarities: true
 - name: RulePolicy
+
+data:
+  - data/nlu.md
+  - data/stories.md
+  - data/rules.yml
+  #- data/faq.yml 
+  
+  
   # core_fallback_threshold: 0.3
   # core_fallback_action_name: "action_default_fallback"
   # enable_fallback_prediction: true
+
+
+
+  # policies:
+  #   - name: "TwoStageFallbackPolicy"
+  #     nlu_threshold: 0.8
+  #     ambiguity_threshold: 0.1
+  #     not_intent: "out_of_scope"
+  #     deny_suggestion_intent_name: "out_of_scope"
+  #     fallback_core_action_name: "action_default_ask_rephrase"
+  #     fallback_nlu_action_name: "action_default_ask_rephrase"
+  #     deny_suggestion_intent_name: "out_of_scope"
