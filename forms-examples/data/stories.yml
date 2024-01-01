@@ -11,12 +11,12 @@ stories:
   - action: contact_form
   - active_loop: contact_form
   - slot_was_set:
-    - requested_slot: name
+    - requested_slot: first_name
   - intent: inform
     entities:
-    - name: trevor
+    - first_name: trevor
   - slot_was_set:
-    - name: trevor
+    - first_name: trevor
   - action: contact_form
   - slot_was_set:
     - requested_slot: number
@@ -43,12 +43,12 @@ stories:
 
 
 
-- story: tell name
+- story: tell first_name
   steps: 
-  - action: utter_ask_name
+  - action: utter_ask_first_name
   - intent: inform  
     entities:
-    - name: "John"  
+    - first_name: "John"  
   - action: utter_want_to_be_contacted  
   - intent: affirm
   - action: contact_form
@@ -82,12 +82,12 @@ stories:
   - action: contact_form
   - active_loop: contact_form
   - slot_was_set:
-    - requested_slot: name
+    - requested_slot: first_name
   - intent: inform
     entities:
-    - name: alice
+    - first_name: alice
   - slot_was_set:
-    - name: alice
+    - first_name: alice
   - action: contact_form
   - slot_was_set:
     - requested_slot: number
@@ -120,12 +120,12 @@ stories:
   - action: contact_form
   - active_loop: contact_form
   - slot_was_set:
-    - requested_slot: name
+    - requested_slot: first_name
   - intent: inform
     entities:
-    - name: ric
+    - first_name: ric
   - slot_was_set:
-    - name: ric
+    - first_name: ric
   - action: contact_form
   - slot_was_set:
     - requested_slot: number
