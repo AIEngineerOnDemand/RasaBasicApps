@@ -1,24 +1,10 @@
-
-
-
-
-- story: tell first_name
-  steps: 
-  - intent: inform  
-    entities:
-    - confirm_first_name: "John"  
-  - action: utter_want_to_be_contacted  
-
-
-
-
 - story: specify name
   steps:
   - intent: inform
     entities:
-    - first_name: John
+    - entity_first_name: "John"
   - slot_was_set:
-    - confirm_first_name: John
+    - entity_first_name: "John"
   - action: utter_want_to_be_contacted
   - intent: affirm
   - action: action_set_first_name
