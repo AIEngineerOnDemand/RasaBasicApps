@@ -12,7 +12,6 @@ entities:
 - entity_first_name
 - email
 - number
-
 slots:
   confirm_first_name:
     type: text
@@ -62,7 +61,7 @@ responses:
   utter_want_to_be_contacted:
   - text: Would you like to get a quote?
   utter_ask_contact_form_first_name:
-  - text: Please type your name with no spaces or special characters  (e.g. John)
+  - text: Type you name with no spaces or special characters  (e.g. John)
   utter_ask_contact_form_number:
   - text: What your mobile number?
   utter_ask_contact_form_email:
@@ -84,13 +83,13 @@ responses:
   utter_submit_form:
   - text: All done! We have received your information. We'll get in touch with you soon.
 actions:
+- utter_goodbye
 - action_check_if_first_name_is_known
-- action_submit
 - action_reset_form
+- action_submit
 - action_check_confirm_first_name
 - action_set_first_name
 - validate_contact_form
-- utter_goodbye
 - utter_confirm_info
 - utter_welcome_to_our_products
 - utter_greet
@@ -103,7 +102,6 @@ actions:
 - utter_submit_form
 - utter_default_ask_rephrase
 - utter_default
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
