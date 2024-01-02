@@ -43,7 +43,7 @@ class ActionCheckConfirmFirstName(Action):
 
         if confirm_first_name:
             # perform the action to confirm the first name
-            dispatcher.utter_message(text="Use this name {confirm_first_name}?")
+            dispatcher.utter_message(text=  f"Use this name {confirm_first_name}?")
         else:
             # do nothing
             pass
@@ -168,7 +168,7 @@ class ActionSubmit(Action):
         first_name = tracker.get_slot("first_name")
         number = tracker.get_slot("number")
         email = tracker.get_slot("email")   
-        response_text = f"Hello {first_name}, your number is {number} and your email is {email}."
+        response_text = f"We have collected the following information:  1. name {first_name}, 2 number {number}, 3 email is {email}."
         dispatcher.utter_message(text =response_text)
         return []
     
@@ -182,9 +182,6 @@ class ActionSubmit(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
         ) -> List[Dict[Text, Any]]:
-            return [
-                {"event": "form", "first_name": None},  # Deactivate the form
-                {"event": "slot", "first_name": "first_name", "value": None},  # Reset the 'first_name' slot
-                {"event": "slot", "first_name": "number", "value": None},  # Reset the 'number' slot
-                {"event": "slot", "first_name": "email", "value": None},  # Reset the 'email' slot
+          return  [
+                {"first_name": None, "email": None, "number": None, "confirm_first_name": None}
             ]
