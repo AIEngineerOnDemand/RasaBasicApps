@@ -45,6 +45,15 @@ rules:
       - requested_slot: null
     # The actions we want to run when the form is submitted.    
   - action: action_submit
+  - action: utter_confirm_info
+
+- rule:  Submittions confirmation
+  steps:
+  - action: utter_confirm_info
+  - intent: deny
+  - action: action_reset_form
+
+
 
 - rule:  Give more info about products
   steps:
