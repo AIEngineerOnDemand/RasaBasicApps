@@ -59,13 +59,13 @@ responses:
   utter_want_to_be_contacted:
   - text: Would you like to get a quote?
   utter_ask_contact_form_first_name:
-  - text: What is your name?
+  - text: Type you name with no spaces or special characters  (e.g. John)    
   utter_ask_contact_form_number:
   - text: What is your mobile number?
   utter_ask_contact_form_email:
   - text: What is your email?
   utter_confirm_info:
-  - text: 'We have collected the info, Name: {first_name}, Number: {number}, Email: {email}'
+  - text: 'Is this information correct?  Name: {first_name}, Number: {number}, Email: {email}'
   utter_anything_else:
   - text: Is there anything else I can help you with?
   utter_iamabot:
@@ -78,9 +78,12 @@ responses:
   - text: Sorry, I didn't get that. Can you rephrase?
   utter_default_ask_rephrase:
   - text: Sorry can you rephrase?
+  utter_submit_form:
+  - text: All done! We have received your information. We'll get in touch with you soon.
 actions:
 - utter_welcome_to_our_products
 - utter_greet
+- utter_goodbye
 - action_check_confirm_first_name
 - action_check_if_first_name_is_known
 - action_set_first_name
