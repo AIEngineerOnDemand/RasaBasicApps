@@ -62,7 +62,7 @@ responses:
   utter_want_to_be_contacted:
   - text: Would you like to get a quote?
   utter_ask_contact_form_first_name:
-  - text: Type you name with no spaces or special characters  (e.g. John)
+  - text: Please type your name with no spaces or special characters  (e.g. John)
   utter_ask_contact_form_number:
   - text: What your mobile number?
   utter_ask_contact_form_email:
