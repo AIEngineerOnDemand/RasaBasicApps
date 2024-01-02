@@ -20,3 +20,65 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
+  - intent: affirm
+  - action: utter_welcome_to_our_products
+  
+- story: greet and welcome
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: inform
+    entities:
+    - entity_first_name: John
+  - slot_was_set:
+    - confirm_first_name: John
+  - action: utter_welcome_to_our_products
+
+- story: start wih name
+  steps:
+  - intent: inform
+    entities:
+    - entity_first_name: John
+  - slot_was_set:
+    - confirm_first_name: John
+  - action: utter_welcome_to_our_products
+  - intent: want_to_be_contacted
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
+  - intent: affirm
+  - action: action_set_first_name
+  - slot_was_set:
+    - first_name: John
+  - slot_was_set:
+    - confirm_first_name: null
+
+
+
+- story: contact form
+  steps:    
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - first_name: John
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: gioa@pantana.com
+  - slot_was_set:
+    - email: gioa@pantana.com
+  - action: contact_form
+  - slot_was_set:
+    - email: gioa@pantana.com
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '2244568990'
+  - slot_was_set:
+    - number: '2244568990'
+  - action: contact_form
+  - slot_was_set:
+    - number: '2244568990'
+ 
+
