@@ -2,7 +2,7 @@ from typing import Any, Text, Dict, List, Optional
 from rasa_sdk import Tracker, Action
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet,FollowupAction
+from rasa_sdk.events import SlotSet,FollowupAction,Form
 from rasa_sdk.interfaces import EventType
 from rasa_sdk.types import DomainDict
 
@@ -172,6 +172,7 @@ class ActionSubmit(Action):
         dispatcher.utter_message(text =response_text)
         return []
     
+
     class ActionResetForm(Action):
         def name(self) -> Text:
             return "action_reset_form"
@@ -182,6 +183,10 @@ class ActionSubmit(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
         ) -> List[Dict[Text, Any]]:
-          return  [
-                {"first_name": None, "email": None, "number": None, "confirm_first_name": None}
+            return [
+                Form(None),  # Deactivate the form
+                SlotSet("first_name", None),  # Reset the 'first_name' slot
+                SlotSet("email", None),  # Reset the 'email' slot
+                SlotSet("number", None),  # Reset the 'number' slot
+                SlotSet("confirm_first_name", None),  # Reset the 'confirm_first_name' slot
             ]
