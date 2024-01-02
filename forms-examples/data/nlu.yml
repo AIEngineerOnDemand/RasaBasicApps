@@ -22,6 +22,7 @@ nlu:
     - Hello there
     - Good morning
     - Good evening
+    - Hi I am [Hugo](entity_first_name)
 - intent: deny
   examples: |
     - no
@@ -46,6 +47,7 @@ nlu:
     - no my first_name is [frank](entity_first_name)
     - no my email is [lola@example.co](email)
     - no my phone number is [1234567890](number)
+    - No my name is not [Hugo](entity_first_name)
 - intent: affirm
   examples: |
     - Yes
@@ -77,7 +79,6 @@ nlu:
     - Yes, I want to be contacted by email or phone
     - how can i get in touch
     - coontact me
- 
 - intent: bot_challenge
   examples: |
     - Are you a bot?
@@ -138,7 +139,7 @@ nlu:
     - [37373737](number)
     - [gddgdg@djjdj.com](email)
     - My name is [John](entity_first_name)
-    -
+    - 
 - intent: goodbye
   examples: |
     - cu
