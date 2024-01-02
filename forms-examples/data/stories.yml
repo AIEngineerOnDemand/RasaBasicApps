@@ -82,3 +82,55 @@ stories:
     - number: '2244568990'
  
 
+
+- story: interactive_story_1111111
+  steps:
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: inform
+    entities:
+    - entity_first_name: Alfredo
+  - slot_was_set:
+    - confirm_first_name: Alfredo
+  - slot_was_set:
+    - first_name: Alfredo
+  - action: contact_form
+  - slot_was_set:
+    - first_name: Alfredo
+  - slot_was_set:
+    - confirm_first_name: Alfredo
+  - slot_was_set:
+    - requested_slot: email
+  - intent: deny
+  - action: action_reset_form
+  - intent: inform
+    entities:
+    - email: sgsgsg@ahahah.com
+  - slot_was_set:
+    - email: sgsgsg@ahahah.com
+  - action: contact_form
+  - slot_was_set:
+    - email: sgsgsg@ahahah.com
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '1223545666'
+  - slot_was_set:
+    - number: '1223545666'
+  - action: contact_form
+  - slot_was_set:
+    - number: '1223545666'
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - action: utter_confirm_info
+  - intent: deny
+  - action: action_reset_form
+  - intent: goodbye
+  - action: utter_goodbye
