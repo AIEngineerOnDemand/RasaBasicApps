@@ -9,9 +9,9 @@ intents:
 - inform
 - want_to_be_contacted
 entities:
-- entity_first_name
-- email
 - number
+- email
+- entity_first_name
 slots:
   confirm_first_name:
     type: text
@@ -83,20 +83,20 @@ responses:
   utter_submit_form:
   - text: All done! We have received your information. We'll get in touch with you soon.
 actions:
-- utter_goodbye
-- action_check_if_first_name_is_known
-- action_reset_form
 - action_submit
-- action_check_confirm_first_name
-- action_set_first_name
-- validate_contact_form
-- utter_confirm_info
 - utter_welcome_to_our_products
+- action_check_confirm_first_name
+- action_check_if_first_name_is_known
+- action_set_first_name
+- utter_anything_else
+- utter_confirm_info
+- utter_goodbye
+- action_reset_form
+- validate_contact_form
 - utter_greet
 - utter_want_to_be_contacted
 - utter_goodbye_confirmation
 - utter_ask_continue
-- utter_anything_else
 - utter_iamabot
 - utter_ask_again
 - utter_submit_form
