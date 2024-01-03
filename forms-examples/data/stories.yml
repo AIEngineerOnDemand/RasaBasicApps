@@ -83,7 +83,7 @@ stories:
  
 
 
-- story: interactive_story_1111111
+- story: interactive_story_number_one
   steps:
   - action: contact_form
   - active_loop: contact_form
@@ -135,11 +135,11 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: interactive_story_number_one
+- story: interactive_story_number_two
   steps:
   - intent: want_to_be_contacted
   - action: action_check_if_first_name_is_known
-  - action: contact_form
+  - action: action_check_confirm_first_name
   - active_loop: contact_form
   - slot_was_set:
     - requested_slot: first_name
