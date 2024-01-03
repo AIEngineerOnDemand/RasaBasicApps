@@ -134,3 +134,47 @@ stories:
   - action: action_reset_form
   - intent: goodbye
   - action: utter_goodbye
+
+- story: interactive_story_number_one
+  steps:
+  - intent: want_to_be_contacted
+  - action: action_check_if_first_name_is_known
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: inform
+    entities:
+    - entity_first_name: Hugo
+  - slot_was_set:
+    - first_name: Hugo
+  - action: contact_form
+  - slot_was_set:
+    - first_name: Hugo
+  - slot_was_set:
+    - requested_slot: email
+  - intent: deny
+    entities:
+    - entity_first_name: Hugo
+  - action: action_reset_form
+  - active_loop: null
+  - slot_was_set:
+    - first_name: null
+  - slot_was_set:
+    - email: null
+  - slot_was_set:
+    - number: null
+  - slot_was_set:
+    - confirm_first_name: null
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: goodbye
+  - slot_was_set:
+    - first_name: goodbye
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_goodbye
