@@ -129,6 +129,15 @@ class ValidateContactForm(FormValidationAction):
                 return {"first_name": None, "confirm_first_name": None}
         if slot_value== prev_mentioned_name:
             return {"first_name": slot_value, "confirm_first_name": slot_value}
+        
+        # if the slot text contains "my name is" then extract the name
+        phrases_to_eliminate = ["my name is", "I am"]
+
+        for phrase in phrases_to_eliminate:
+            if phrase in slot_value:
+                slot_value = slot_value.split(phrase)[-1].strip()
+
+        return {"first_name": slot_value, "confirm_first_name": None}
   
   
     
