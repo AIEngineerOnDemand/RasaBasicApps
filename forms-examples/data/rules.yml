@@ -1,49 +1,41 @@
-version: "3.1"
-
 rules:
 
+# Rule 1: Respond to user challenges
+# This rule is triggered when the user's intent is 'bot_challenge'.
+# The bot responds by executing the 'utter_iamabot' action.
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
 
+# Rule 2: Activate contact form
+# This rule is triggered when the user's intent is 'want_to_be_contacted'.
+# The bot responds by executing the 'action_check_if_first_name_is_known' action.
 - rule: Activate contact form
   steps:
   - intent: want_to_be_contacted
-  - action: contact_form
-  - active_loop: contact_form
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
 
-# - rule: Validate form when user provides information
-#   condition:
-#   - active_loop: contact_form
-#   steps:
-#   - intent: inform
-#   - action: validate_contact_form
-#   - active_loop: contact_form  
-
-- rule: Confirm name
+# Rule 3: User affirms first name
+# This rule is triggered when the user's intent is 'affirm' and the 'confirm_first_name' slot is set to true.
+# The bot responds by executing the 'action_set_first_name' action, which sets the 'first_name' slot to the value of the 'confirm_first_name' slot.
+# Then, the 'contact_form' is activated and the bot enters the 'contact_form' loop.
+- rule: User affirms first name
   condition:
-  - active_loop: contact_form
-  - slot_was_set:
-    - confirm_first_name: 
+    - slot_was_set:
+        - confirm_first_name: true
   steps:
+  - action: action_check_confirm_first_name
   - intent: affirm
-  - action: action_confirm_first_name
-  - active_loop: contact_form
+  - action: action_set_first_name 
 
-- rule: Deny name
-  condition:
-  - active_loop: contact_form
-  - slot_was_set:
-    - confirm_first_name: 
-  steps:
-  - intent: deny
-  - action: action_confirm_first_name
-  - active_loop: contact_form
 
+# Rule 4: Submit Contact Form
+# This rule is triggered when the 'contact_form' loop is active.
+# (Add more details about what happens when this rule is triggered)
 - rule: Submit Contact Form
   condition:
-  # Condition that form is active.
     - active_loop: contact_form
   steps:
   # Form is deactivated
@@ -53,6 +45,15 @@ rules:
       - requested_slot: null
     # The actions we want to run when the form is submitted.    
   - action: action_submit
+  - action: utter_confirm_info
+
+- rule:  Submittions confirmation
+  steps:
+  - action: utter_confirm_info
+  - intent: deny
+  - action: action_reset_form
+
+
 
 - rule:  Give more info about products
   steps:
@@ -67,22 +68,12 @@ rules:
    - action: utter_ask_again
 
 
-# - rule: Reset form when entity extraction fails
-#   condition:
-#   - active_loop: contact_form
-#   steps:
-#   - intent: inform  # The user provides information
-#   - action: validate_contact_form
-#   - slot_was_set:
-#     - requested_slot: null  # Entity extraction failed
-#   - action: action_reset_form  # Reset the formrasa shell --deg
-
-# - rule: Reset form if the user says 'no' when asked for affirmation
-#   condition:
-#   - active_loop: contact_form
-#   steps:
-#   - intent: deny
-#   - action: action_reset_form
+- rule: Reset form if the user says 'no' when asked for affirmation
+  condition:
+  - active_loop: contact_form
+  steps:
+  - intent: deny
+  - action: action_reset_form
 
 - rule: User says stop or goodbye anytime during the form
   condition:

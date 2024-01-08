@@ -1,155 +1,235 @@
-
 version: "3.1"
+
+
 stories:
-- story: interactive_story_1
+- story: specify name
+  steps:
+  - intent: inform
+    entities:
+    - entity_first_name: John
+  - slot_was_set:
+    - confirm_first_name: John
+  - action: utter_welcome_to_our_products
+  - intent: affirm
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
+  - intent: affirm
+  - action: action_set_first_name
+
+- story: happy_path
   steps:
   - intent: greet
   - action: utter_greet
   - intent: affirm
   - action: utter_welcome_to_our_products
-  - intent: want_to_be_contacted
-  - action: contact_form
-  - active_loop: contact_form
-  - slot_was_set:
-    - requested_slot: first_name
-  - intent: inform
-    entities:
-    - first_name: trevor
-  - slot_was_set:
-    - first_name: trevor
-  - action: contact_form
-  - slot_was_set:
-    - requested_slot: number
-  - intent: inform
-    entities:
-    - number: '1234567'
-  - slot_was_set:
-    - number: '1234567'
-  - action: contact_form
-  - slot_was_set:
-    - requested_slot: email
-  - intent: inform
-    entities:
-    - email: travero@gmail.com
-  - slot_was_set:
-    - email: travero@gmail.com
-  - action: contact_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_submit
-  - intent: affirm
-  - action: utter_anything_else
-
-
-
-- story: tell first_name
-  steps: 
-  - action: utter_ask_first_name
-  - intent: inform  
-    entities:
-    - first_name: "John"  
-  - action: utter_want_to_be_contacted  
-  - intent: affirm
-  - action: contact_form
-  - active_loop: contact_form
   
-  # - story: I want a quote
-  #   steps:
-  #   - intent: greet
-  #   - action: utter_welcome_to_our_products 
-  #   - intent: affirm
-  #   - action: utter_want_to_be_contacted
-  #   - action: contact_form
-  #   - active_loop: contact_form
-  #   - action: user_details_form
-  #   - active_loop: null
-  #   - slot_was_set:
-  #       - requested_slot: null
-  #   - action: action_submit
-  #   - action: utter_goodbye
-
-
-
-
-- story: interactive_story_2
+- story: greet and welcome
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: affirm
+  - intent: inform
+    entities:
+    - entity_first_name: John
+  - slot_was_set:
+    - confirm_first_name: John
+  - action: utter_welcome_to_our_products
+
+- story: start wih name
+  steps:
+  - intent: inform
+    entities:
+    - entity_first_name: John
+  - slot_was_set:
+    - confirm_first_name: John
   - action: utter_welcome_to_our_products
   - intent: want_to_be_contacted
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
+  - intent: affirm
+  - action: action_set_first_name
+  - slot_was_set:
+    - first_name: John
+  - slot_was_set:
+    - confirm_first_name: null
+
+
+
+- story: contact form
+  steps:    
   - action: contact_form
   - active_loop: contact_form
   - slot_was_set:
-    - requested_slot: first_name
-  - intent: inform
-    entities:
-    - first_name: alice
-  - slot_was_set:
-    - first_name: alice
-  - action: contact_form
-  - slot_was_set:
-    - requested_slot: number
-  - intent: inform
-    entities:
-    - number: '+123444555'
-  - slot_was_set:
-    - number: '+123444555'
-  - action: contact_form
+    - first_name: John
   - slot_was_set:
     - requested_slot: email
   - intent: inform
     entities:
-    - email: hagag@hghggh.com
+    - email: gioa@pantana.com
   - slot_was_set:
-    - email: hagag@hghggh.com
+    - email: gioa@pantana.com
   - action: contact_form
   - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_submit
+    - email: gioa@pantana.com
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '2244568990'
+  - slot_was_set:
+    - number: '2244568990'
+  - action: contact_form
+  - slot_was_set:
+    - number: '2244568990'
+ 
 
 
-
-- story: interactive_story_3
+- story: interactive_story_number_one
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: want_to_be_contacted
   - action: contact_form
   - active_loop: contact_form
   - slot_was_set:
     - requested_slot: first_name
   - intent: inform
     entities:
-    - first_name: ric
+    - entity_first_name: Alfredo
   - slot_was_set:
-    - first_name: ric
+    - confirm_first_name: Alfredo
+  - slot_was_set:
+    - first_name: Alfredo
   - action: contact_form
+  - slot_was_set:
+    - first_name: Alfredo
+  - slot_was_set:
+    - confirm_first_name: Alfredo
+  - slot_was_set:
+    - requested_slot: email
+  - intent: deny
+  - action: action_reset_form
+  - intent: inform
+    entities:
+    - email: sgsgsg@ahahah.com
+  - slot_was_set:
+    - email: sgsgsg@ahahah.com
+  - action: contact_form
+  - slot_was_set:
+    - email: sgsgsg@ahahah.com
   - slot_was_set:
     - requested_slot: number
   - intent: inform
     entities:
-    - number: '37373737'
+    - number: '1223545666'
   - slot_was_set:
-    - number: '37373737'
+    - number: '1223545666'
   - action: contact_form
   - slot_was_set:
-    - requested_slot: email
-  - intent: inform
-    entities:
-    - email: gddgdg@djjdj.com
+    - number: '1223545666'
   - slot_was_set:
-    - email: gddgdg@djjdj.com
-  - action: contact_form
+    - requested_slot: null
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
   - action: action_submit
+  - action: utter_confirm_info
+  - intent: deny
+  - action: action_reset_form
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_number_two
+  steps:
+  - intent: want_to_be_contacted
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: inform
+    entities:
+    - entity_first_name: Hugo
+  - slot_was_set:
+    - first_name: Hugo
+  - action: contact_form
+  - slot_was_set:
+    - first_name: Hugo
+  - slot_was_set:
+    - requested_slot: email
+  - intent: deny
+    entities:
+    - entity_first_name: Hugo
+  - action: action_reset_form
+  - active_loop: null
+  - slot_was_set:
+    - first_name: null
+  - slot_was_set:
+    - email: null
+  - slot_was_set:
+    - number: null
+  - slot_was_set:
+    - confirm_first_name: null
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: goodbye
+  - slot_was_set:
+    - first_name: goodbye
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_goodbye
+
+- story: interactive_story_number_three
+  steps:
+  - intent: inform
+    entities:
+    - entity_first_name: Yoko
+  - slot_was_set:
+    - confirm_first_name: Yoko
+  - action: utter_welcome_to_our_products
+  - intent: affirm
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
+  - intent: affirm
+  - action: action_set_first_name
+  - slot_was_set:
+    - first_name: Yoko
+  - slot_was_set:
+    - confirm_first_name: null
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - first_name: Yoko
+  - slot_was_set:
+    - confirm_first_name: null
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: yoko@ono.jap
+  - slot_was_set:
+    - email: yoko@ono.com
+  - action: contact_form
+  - slot_was_set:
+    - email: yoko@ono.com
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '2939393939'
+  - slot_was_set:
+    - number: '2939393939'
+  - action: contact_form
+  - slot_was_set:
+    - number: '2939393939'
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - action: utter_confirm_info
   - intent: affirm
   - action: utter_anything_else
-  - intent: ask_more_information_about_products
-  - action: utter_give_more_info_about_products
-  - intent: goodbye
+  - intent: deny
   - action: utter_goodbye

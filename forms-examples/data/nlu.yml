@@ -22,6 +22,7 @@ nlu:
     - Hello there
     - Good morning
     - Good evening
+    - Hi I am [Hugo](entity_first_name)
 - intent: deny
   examples: |
     - no
@@ -43,9 +44,12 @@ nlu:
     - no that's not what i'm looking for
     - no that's not what i'm looking for today
     - no that's not what i'm looking for right now
-    - no my first_name is [frank](first_name)
+    - no my first_name is [frank](entity_first_name)
     - no my email is [lola@example.co](email)
     - no my phone number is [1234567890](number)
+    - No my name is not [Hugo](entity_first_name)
+    - No thanks that's all
+    - No thanks that's all for today
 - intent: affirm
   examples: |
     - Yes
@@ -61,6 +65,17 @@ nlu:
     - Can you tell me more about your products?
     - yea
     - Yep!
+    - sure
+    - yes
+    - yes please
+    - tell me more
+    - yes that's right
+    - Yes that's correct
+    - Yes that's what I want
+    - Yes that's what I'm looking for
+    - Yes that's what I'm looking for today
+
+    
 - intent: want_to_be_contacted
   examples: |
     - contact me
@@ -91,24 +106,24 @@ nlu:
 - intent: inform
   examples: |
     - [auaua@dbdd.com](email)
-    - [John](first_name)
-    - [Mary](first_name)
-    - [Robert](first_name)
-    - [Sophia](first_name)
-    - [Emma](first_name)
-    - [Mike](first_name)
-    - [Sarah](first_name)
-    - [Harris](first_name)
-    - [Luke](first_name)
-    - [Pat](first_name)
+    - [John](entity_first_name)
+    - [Mary](entity_first_name)
+    - [Robert](entity_first_name)
+    - [Sophia](entity_first_name)
+    - [Emma](entity_first_name)
+    - [Mike](entity_first_name)
+    - [Sarah](entity_first_name)
+    - [Harris](entity_first_name)
+    - [Luke](entity_first_name)
+    - [Pat](entity_first_name)
     - [1234567890](number)
     - [0987654321](number)
-    - You can call me [Harris](first_name)
-    - I am [Sarah](first_name)
-    - Please, call me [Mike](first_name)
-    - Just call me [Emma](first_name)
-    - I'm [Robert](first_name)
-    - People call me [Sophia](first_name)
+    - You can call me [Harris](entity_first_name)
+    - I am [Sarah](entity_first_name)
+    - Please, call me [Mike](entity_first_name)
+    - Just call me [Emma](entity_first_name)
+    - I'm [Robert](entity_first_name)
+    - People call me [Sophia](entity_first_name)
     - My email is [john@example.com](email)
     - [john@example.com](email) is my email
     - [john@example.com](email)
@@ -125,15 +140,20 @@ nlu:
     - I can be reached at [6677889900](number)
     - Call me on [4455667788](number)
     - My mobile is [9988776655](number)
-    - [alice](first_name)
+    - [alice](entity_first_name)
     - [+123444555](number)
     - [hagag@hghggh.com](email)
-    - [lulu](first_name)
-    - [ric](first_name)
-    - My first_name is [Mary](first_name)
+    - [lulu](entity_first_name)
+    - [ric](entity_first_name)
+    - My entity_first_name is [Mary](entity_first_name)
     - [37373737](number)
     - [gddgdg@djjdj.com](email)
-    - [ric](first_name)
+    - My name is [John](entity_first_name)
+    - 
+    - My name is [Yoko](entity_first_name)
+    - [yoko@ono.jap](email)
+    - [yoko@ono.com](email)
+    - [2939393939](number)
 - intent: goodbye
   examples: |
     - cu
@@ -162,7 +182,6 @@ nlu:
     - I don't want to continue with this
     - I don't want to continue with this anymore
     - I don't want to continue with this form anymore
-
 - regex: email
   examples: |
     - [a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+

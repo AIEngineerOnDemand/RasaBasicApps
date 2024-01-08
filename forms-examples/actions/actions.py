@@ -2,25 +2,74 @@ from typing import Any, Text, Dict, List, Optional
 from rasa_sdk import Tracker, Action
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet,FollowupAction
+from rasa_sdk.events import SlotSet,FollowupAction,Form
 from rasa_sdk.interfaces import EventType
 from rasa_sdk.types import DomainDict
 
-class ActionConfirmfirst_name(Action):
+def clean_name(name):
+    return "".join([c for c in name if c.isalpha()])
+
+class ActionCheckIfFirstNameIsKnown(Action):
     def name(self) -> Text:
-        return "action_confirm_first_name"
+        return "action_check_if_first_name_is_known"
 
     async def run(
         self,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> List[Dict[Text, Any]]:
-        intent = tracker.get_intent_of_latest_message()
-        if intent == "affirm":
-            return [SlotSet("first_name", tracker.get_slot("confirm_first_name")), SlotSet("confirm_first_name", None)]
-        elif intent == "deny":
-            return [SlotSet("confirm_first_name", None), FollowupAction("contact_form")]
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        confirm_first_name = tracker.get_slot('confirm_first_name')
+
+        if not confirm_first_name:
+    # start the contact form
+             return [FollowupAction("contact_form")]
+        else: 
+            # do nothing
+            pass 
+
+class ActionCheckConfirmFirstName(Action):
+
+    def name(self) -> Text:
+        return "action_check_confirm_first_name"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        confirm_first_name = tracker.get_slot('confirm_first_name')
+
+        if confirm_first_name:
+            # perform the action to confirm the first name
+            dispatcher.utter_message(text=  f"Use this name {confirm_first_name}?")
+        else:
+            # do nothing
+            pass
+
+        return []       
+        
+class ActionSetFirstName(Action):
+
+    def name(self) -> Text:
+        return "action_set_first_name"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        confirm_first_name = tracker.get_slot('confirm_first_name')
+        
+        if confirm_first_name:
+            # Perform the action to set the first name
+            print('collecting',confirm_first_name)
+            return [SlotSet("first_name", confirm_first_name), SlotSet("confirm_first_name", None),  
+                    FollowupAction("contact_form")]
+        else:
+            pass    
 
 
 class ValidateContactForm(FormValidationAction):
@@ -38,18 +87,32 @@ class ValidateContactForm(FormValidationAction):
         domain: Dict[Text, Any],
     ) -> Optional[List[Text]]:
         return ["first_name", "email", "number"]
-    async def extract_first_name(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        text_of_last_user_message = tracker.latest_message.get("text")
-        intent = tracker.latest_message['intent'].get('name')
-        print('intent',intent)
-        print('text_of_last_user_message',text_of_last_user_message)
-        if intent == "inform":
-            return  {"first_name": None , "confirm_first_name": text_of_last_user_message}
-        else:
-            return {"first_name": None, "confirm_first_name": None}
-
+    # async def extract_first_name(
+    #     self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    # ) -> Dict[Text, Any]:
+    #     text_of_last_user_message = tracker.latest_message.get("text")
+    #     intent = tracker.latest_message['intent'].get('name')
+    #     if intent == "inform":
+    #         return  {"first_name": None , "confirm_first_name": text_of_last_user_message}
+    #     else:
+    #         return {"first_name": None, "confirm_first_name": None}
+    # async def validate_confirm_first_name(
+    #     self,
+    #     slot_value: Any,
+    #     dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: DomainDict,
+    # ) -> Dict[Text, Any]:
+    #     slot_value = clean_name(slot_value)
+    #     if slot_value: 
+    #             if slot_value  and len(slot_value) > 2 :       
+    #                 dispatcher.utter_message(text=f"Use this name {slot_value}?")
+    #                 return {"first_name": slot_value, "confirm_first_name": slot_value}
+    #             else:
+    #                 return {"first_name": None, "confirm_first_name": None}
+    #     else:
+    #         return {"first_name": None, "confirm_first_name": None}
+            
     async def validate_first_name(
         self,
         slot_value: Any,
@@ -57,40 +120,24 @@ class ValidateContactForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        intent = tracker.latest_message['intent'].get('name')
-        print('intent,slot_value',intent,slot_value)
-        print('not slot_value', not slot_value)
-        print('intent == "inform"', intent == "inform")
-        print('not slot_value and intent == "inform"',(not slot_value and intent == "inform"))
-        if not slot_value and intent == "inform":
-            slot_value = tracker.latest_message.get('text')
-            print('retrieved text',slot_value)
-        if intent == "inform":
-            dispatcher.utter_message(text=f"Your first_name is {slot_value}?")
+        prev_mentioned_name = tracker.get_slot("confirm_first_name")
+        prev_mentioned_name = clean_name(prev_mentioned_name) if prev_mentioned_name else None
+
+        slot_value = clean_name(slot_value)
+        if len(slot_value) < 3:
+                dispatcher.utter_message(text="Your first_name should be at least 3 characters long.")
+                return {"first_name": None, "confirm_first_name": None}
+        if slot_value== prev_mentioned_name:
             return {"first_name": slot_value, "confirm_first_name": slot_value}
-        else:
-            return {"first_name": None, "confirm_first_name": None}
-#     def validate_first_name(
-#         self,
-#         value: Text,
-#         dispatcher: "CollectingDispatcher",
-#         tracker: "Tracker",
-#         domain: "DomainDict",
-#     ) -> List[EventType]:
-#         returned_slots = {}
-#         intent = tracker.get_intent_of_latest_message()
-#         if value is not None :
-#             returned_slots = {"first_name": value, "confirm_first_name": value}
-#         else:
-#             returned_slots = {REQUESTED_SLOT: FIRST_NAME}
-#             if value is None and  intent == "inform":
-#                 user_message = tracker.latest_message.get('text')
-#                 dispatcher.utter_message(text=f"Your first_name is {user_message}?")
-#                 value = user_message
-#                 returned_slots = {"first_name": value, "confirm_first_name": value}
-#             if value is None and  intent != "inform":
-#                 returned_slots = {"first_name": None, "confirm_first_name": None}
-#         return returned_slots
+        
+        # if the slot text contains "my name is" then extract the name
+        phrases_to_eliminate = ["my name is", "I am"]
+
+        for phrase in phrases_to_eliminate:
+            if phrase in slot_value:
+                slot_value = slot_value.split(phrase)[-1].strip()
+
+        return {"first_name": slot_value, "confirm_first_name": None}
   
   
     
@@ -130,10 +177,11 @@ class ActionSubmit(Action):
         first_name = tracker.get_slot("first_name")
         number = tracker.get_slot("number")
         email = tracker.get_slot("email")   
-        response_text = f"Hello {first_name}, your number is {number} and your email is {email}."
+        response_text = f"We have collected the following information:  1. name {first_name}, 2 number {number}, 3 email is {email}."
         dispatcher.utter_message(text =response_text)
         return []
     
+
     class ActionResetForm(Action):
         def name(self) -> Text:
             return "action_reset_form"
@@ -145,8 +193,9 @@ class ActionSubmit(Action):
             domain: Dict[Text, Any],
         ) -> List[Dict[Text, Any]]:
             return [
-                {"event": "form", "first_name": None},  # Deactivate the form
-                {"event": "slot", "first_name": "first_name", "value": None},  # Reset the 'first_name' slot
-                {"event": "slot", "first_name": "number", "value": None},  # Reset the 'number' slot
-                {"event": "slot", "first_name": "email", "value": None},  # Reset the 'email' slot
+                Form(None),  # Deactivate the form
+                SlotSet("first_name", None),  # Reset the 'first_name' slot
+                SlotSet("email", None),  # Reset the 'email' slot
+                SlotSet("number", None),  # Reset the 'number' slot
+                SlotSet("confirm_first_name", None),  # Reset the 'confirm_first_name' slot
             ]

@@ -1,27 +1,33 @@
 version: '3.1'
 intents:
+- affirm
 - ask_more_information_about_products
 - bot_challenge
-- affirm
+- deny
 - goodbye
 - greet
 - inform
 - want_to_be_contacted
-- deny
 entities:
-- first_name
-- email
 - number
+- email
+- entity_first_name
 slots:
   confirm_first_name:
     type: text
-    influence_conversation: false
-    mappings: []
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      intent: inform
+      entity: entity_first_name
   first_name:
     type: text
     influence_conversation: true
-    mappings: 
-    - type: custom
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: contact_form
+        requested_slot: first_name
   number:
     type: text
     influence_conversation: true
@@ -37,10 +43,13 @@ slots:
 forms:
   contact_form:
     required_slots:
+    - confirm_first_name
     - first_name
     - number
     - email
 responses:
+  utter_goodbye:
+  - text: '"Thank you have a nice day"'
   utter_greet:
   - text: How are you? Would you like to know about our products?
   utter_welcome_to_our_products:
@@ -51,46 +60,48 @@ responses:
   - text: Are you sure you want to stop the form?
   utter_want_to_be_contacted:
   - text: Would you like to get a quote?
-  utter_submit:
-  - text: I will now order a pizza for you!
   utter_ask_contact_form_first_name:
-  - text: What is your name?
+  - text: Type you name with no spaces or special characters  (e.g. John)
   utter_ask_contact_form_number:
-  - text: What is your mobile number?
+  - text: What your mobile number?
   utter_ask_contact_form_email:
   - text: What is your email?
   utter_confirm_info:
-  - text: 'We have collected the info, Name: {Name}, Number: {Number}, Email: {email}'
+  - text: 'Is this information correct?  Name: {first_name}, Number: {number}, Email: {email}'
   utter_anything_else:
   - text: Is there anything else I can help you with?
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
-  utter_goodbye:
+  utter_goodbye_confirmation:
   - text: We'll get in touch with you soon. You'll receive an email from us.
   utter_ask_again:
   - text: I'm sorry, I didn't understand that. Can you rephrase or repeat?
-  utter_default:  # This is a built-in utterance
+  utter_default:
   - text: Sorry, I didn't get that. Can you rephrase?
-  utter_default_ask_rephrase:  # This is a built-in utterance
+  utter_default_ask_rephrase:
   - text: Sorry can you rephrase?
+  utter_submit_form:
+  - text: All done! We have received your information. We'll get in touch with you soon.
 actions:
-- action_reset_form
-- utter_greet
-- utter_goodbye
-- utter_welcome_to_our_products
 - action_submit
-- utter_give_more_info_about_products
-- utter_ask_contact_form_name
-- utter_ask_contact_form_number
-- utter_ask_contact_form_email
-- utter_confirm_info
+- utter_welcome_to_our_products
+- action_check_confirm_first_name
+- action_check_if_first_name_is_known
+- action_set_first_name
 - utter_anything_else
-- utter_ask_again
-- utter_default_ask_rephrase
-- action_confirm_first_name
+- utter_confirm_info
+- utter_goodbye
+- action_reset_form
 - validate_contact_form
-
-
+- utter_greet
+- utter_want_to_be_contacted
+- utter_goodbye_confirmation
+- utter_ask_continue
+- utter_iamabot
+- utter_ask_again
+- utter_submit_form
+- utter_default_ask_rephrase
+- utter_default
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
