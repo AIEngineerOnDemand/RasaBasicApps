@@ -9,3 +9,4 @@ forms-examples/models/*.tar.gz
 
 # Ignore all .pyc files in the actions directory
 forms-examples/actions/__pycache__/*.pyc
+forms-examples/story_graph.dot
