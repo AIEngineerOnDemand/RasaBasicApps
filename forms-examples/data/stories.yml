@@ -233,3 +233,62 @@ stories:
   - action: utter_anything_else
   - intent: deny
   - action: utter_goodbye
+
+- story: interactive_story_number_four
+  steps:
+  - intent: want_to_be_contacted
+  - action: action_check_if_first_name_is_known
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: inform
+    entities:
+    - entity_first_name: Philip
+  - slot_was_set:
+    - confirm_first_name: Philip
+  - slot_was_set:
+    - first_name: Philip
+  - action: contact_form
+  - slot_was_set:
+    - first_name: Philip
+  - slot_was_set:
+    - confirm_first_name: Philip
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: pili@hotmail.com
+  - slot_was_set:
+    - email: pili@hotmail.com
+  - action: contact_form
+  - slot_was_set:
+    - email: pili@hotmail.com
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '611276626'
+  - slot_was_set:
+    - number: '611276626'
+  - action: contact_form
+  - slot_was_set:
+    - number: '611276626'
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - action: utter_confirm_info
+  - intent: affirm
+  - action: utter_anything_else
+  - intent: deny
+  - action: action_save_to_db
+  - action: utter_goodbye_confirmation
+
+- story: confirm information and ask for anything else
+  steps:
+  - action: utter_confirm_info
+  - intent: affirm
+  - action: utter_anything_else
