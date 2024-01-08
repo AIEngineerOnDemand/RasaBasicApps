@@ -2,22 +2,26 @@ version: '3.1'
 intents:
 - ask_more_information_about_products
 - bot_challenge
-- confirm_interest
+- affirm
+- goodbye
 - greet
 - inform
 - want_to_be_contacted
-- goodbye
+- deny
 entities:
-- name
-- number
+- first_name
 - email
+- number
 slots:
-  name:
+  confirm_first_name:
+    type: text
+    influence_conversation: false
+    mappings: []
+  first_name:
     type: text
     influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: name
+    mappings: 
+    - type: custom
   number:
     type: text
     influence_conversation: true
@@ -33,14 +37,14 @@ slots:
 forms:
   contact_form:
     required_slots:
-    - name
+    - first_name
     - number
     - email
 responses:
   utter_greet:
   - text: How are you? Would you like to know about our products?
   utter_welcome_to_our_products:
-   - text: 'We can make highly-personalized bot for any commerce. As an example you can showcase two products: restaurant or e-commerce.'
+  - text: 'We can make highly-personalized bot for any commerce. As an example you can showcase two products: restaurant or e-commerce.'
   utter_give_more_info_about_products:
   - text: 'Sure here are some examples and functionalities  of our chatbots: 1. Restaurant: https://www.youtube.com/watch?v=9jO8jJXqzqA 2. E-commerce: https://www.youtube.com/watch?v=9jO8jJXqzqA'
   utter_ask_continue:
@@ -49,7 +53,7 @@ responses:
   - text: Would you like to get a quote?
   utter_submit:
   - text: I will now order a pizza for you!
-  utter_ask_contact_form_name:
+  utter_ask_contact_form_first_name:
   - text: What is your name?
   utter_ask_contact_form_number:
   - text: What is your mobile number?
@@ -57,21 +61,34 @@ responses:
   - text: What is your email?
   utter_confirm_info:
   - text: 'We have collected the info, Name: {Name}, Number: {Number}, Email: {email}'
+  utter_anything_else:
+  - text: Is there anything else I can help you with?
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_goodbye:
   - text: We'll get in touch with you soon. You'll receive an email from us.
+  utter_ask_again:
+  - text: I'm sorry, I didn't understand that. Can you rephrase or repeat?
+  utter_default:  # This is a built-in utterance
+  - text: Sorry, I didn't get that. Can you rephrase?
+  utter_default_ask_rephrase:  # This is a built-in utterance
+  - text: Sorry can you rephrase?
 actions:
-- utter_welcome_to_our_products
+- action_reset_form
 - utter_greet
+- utter_goodbye
+- utter_welcome_to_our_products
 - action_submit
+- utter_give_more_info_about_products
 - utter_ask_contact_form_name
 - utter_ask_contact_form_number
 - utter_ask_contact_form_email
 - utter_confirm_info
-- utter_give_more_info_about_products
-#- validate_contact_form
-
+- utter_anything_else
+- utter_ask_again
+- utter_default_ask_rephrase
+- action_confirm_first_name
+- validate_contact_form
 
 
 session_config:

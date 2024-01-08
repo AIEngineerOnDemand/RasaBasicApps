@@ -2,13 +2,19 @@
 
 This repository showcases basic apps that you can build with Rasa Open Source.
 
+# RasaBasicApps
+
+This repository showcases basic apps that you can build with Rasa Open Source.
+
 ## Getting Started
 
 To get started, follow these steps:
 
 1. Create a Python environment using Poetry in the main folder of this repository.
-2. Each subfolder contains the code for a different app and will have its own readme with instructions.
-   
+2. Install Spacy in your Python environment. If you're using Poetry, you can do this with the command `poetry add spacy`. If you're using pip, you can use the command `pip install spacy`.
+3. Download and install the Spacy model that matches the one specified in your `config.yml` file. For example, if you're using `en_core_web_md`, you can download it using the command `poetry run python -m spacy download en_core_web_md` if you're using Poetry, or `python -m spacy download en_core_web_md` if you're using pip.
+4. Each subfolder contains the code for a different app and will have its own readme with instructions.
+
 ## App List
 
 - Restaurant Chatbot: [Link to Restaurant Chatbot readme](restaurant-chatbot/Readme.md)

@@ -1,19 +1,64 @@
+
 version: "3.1"
 stories:
 - story: interactive_story_1
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: confirm_interest
-  - action: utter_welcome_to_our_products 
-  - intent: ask_more_information_about_products
-  - action: utter_give_more_info_about_products
-    
+  - intent: affirm
+  - action: utter_welcome_to_our_products
+  - intent: want_to_be_contacted
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: inform
+    entities:
+    - first_name: trevor
+  - slot_was_set:
+    - first_name: trevor
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '1234567'
+  - slot_was_set:
+    - number: '1234567'
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: travero@gmail.com
+  - slot_was_set:
+    - email: travero@gmail.com
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - intent: affirm
+  - action: utter_anything_else
+
+
+
+- story: tell first_name
+  steps: 
+  - action: utter_ask_first_name
+  - intent: inform  
+    entities:
+    - first_name: "John"  
+  - action: utter_want_to_be_contacted  
+  - intent: affirm
+  - action: contact_form
+  - active_loop: contact_form
+  
   # - story: I want a quote
   #   steps:
   #   - intent: greet
   #   - action: utter_welcome_to_our_products 
-  #   - intent: confirm_interest
+  #   - intent: affirm
   #   - action: utter_want_to_be_contacted
   #   - action: contact_form
   #   - active_loop: contact_form
@@ -27,3 +72,84 @@ stories:
 
 
 
+- story: interactive_story_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: affirm
+  - action: utter_welcome_to_our_products
+  - intent: want_to_be_contacted
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: inform
+    entities:
+    - first_name: alice
+  - slot_was_set:
+    - first_name: alice
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '+123444555'
+  - slot_was_set:
+    - number: '+123444555'
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: hagag@hghggh.com
+  - slot_was_set:
+    - email: hagag@hghggh.com
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+
+
+
+- story: interactive_story_3
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: want_to_be_contacted
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - intent: inform
+    entities:
+    - first_name: ric
+  - slot_was_set:
+    - first_name: ric
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '37373737'
+  - slot_was_set:
+    - number: '37373737'
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: gddgdg@djjdj.com
+  - slot_was_set:
+    - email: gddgdg@djjdj.com
+  - action: contact_form
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - intent: affirm
+  - action: utter_anything_else
+  - intent: ask_more_information_about_products
+  - action: utter_give_more_info_about_products
+  - intent: goodbye
+  - action: utter_goodbye
