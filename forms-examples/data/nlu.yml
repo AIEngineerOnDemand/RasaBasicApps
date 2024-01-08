@@ -50,6 +50,7 @@ nlu:
     - No my name is not [Hugo](entity_first_name)
     - No thanks that's all
     - No thanks that's all for today
+    - no I am good
 - intent: affirm
   examples: |
     - Yes
@@ -74,8 +75,7 @@ nlu:
     - Yes that's what I want
     - Yes that's what I'm looking for
     - Yes that's what I'm looking for today
-
-    
+    - yes that's correct
 - intent: want_to_be_contacted
   examples: |
     - contact me
@@ -89,6 +89,7 @@ nlu:
     - Yes, I want to be contacted by email or phone
     - how can i get in touch
     - coontact me
+    - I want to get in touch
 - intent: bot_challenge
   examples: |
     - Are you a bot?
@@ -149,11 +150,14 @@ nlu:
     - [37373737](number)
     - [gddgdg@djjdj.com](email)
     - My name is [John](entity_first_name)
-    - 
     - My name is [Yoko](entity_first_name)
     - [yoko@ono.jap](email)
     - [yoko@ono.com](email)
     - [2939393939](number)
+    - My name is [Javier](entity_first_name)
+    - my email is [javier@gmail.com](email)
+    - [611276626](number)
+    - my mail is [juko-8w8**09ak@kualsonxjs.ko.poa](email)
 - intent: goodbye
   examples: |
     - cu
