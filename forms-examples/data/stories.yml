@@ -178,3 +178,58 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - action: utter_goodbye
+
+- story: interactive_story_number_three
+  steps:
+  - intent: inform
+    entities:
+    - entity_first_name: Yoko
+  - slot_was_set:
+    - confirm_first_name: Yoko
+  - action: utter_welcome_to_our_products
+  - intent: affirm
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
+  - intent: affirm
+  - action: action_set_first_name
+  - slot_was_set:
+    - first_name: Yoko
+  - slot_was_set:
+    - confirm_first_name: null
+  - action: contact_form
+  - active_loop: contact_form
+  - slot_was_set:
+    - first_name: Yoko
+  - slot_was_set:
+    - confirm_first_name: null
+  - slot_was_set:
+    - requested_slot: email
+  - intent: inform
+    entities:
+    - email: yoko@ono.jap
+  - slot_was_set:
+    - email: yoko@ono.com
+  - action: contact_form
+  - slot_was_set:
+    - email: yoko@ono.com
+  - slot_was_set:
+    - requested_slot: number
+  - intent: inform
+    entities:
+    - number: '2939393939'
+  - slot_was_set:
+    - number: '2939393939'
+  - action: contact_form
+  - slot_was_set:
+    - number: '2939393939'
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - action: utter_confirm_info
+  - intent: affirm
+  - action: utter_anything_else
+  - intent: deny
+  - action: utter_goodbye
