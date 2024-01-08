@@ -6,7 +6,7 @@ from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet,FollowupAction, ActiveLoop, UserUtteranceReverted
 from rasa_sdk.interfaces import EventType
 from rasa_sdk.types import DomainDict
-import PyMYSQL as mysql 
+import pymysql as mysql
 
 def clean_name(name):
     return "".join([c for c in name if c.isalpha()])
@@ -14,7 +14,7 @@ def clean_name(name):
 # write an action function to connect to local host with users = "root" using PYMYSQL
 class ActionConnectToDB(Action):
     def name(self) -> Text:
-        return "action_connect_to_db"
+        return "action_save_to_db"
     async def run(
         self,
         dispatcher: CollectingDispatcher,
@@ -47,7 +47,6 @@ class ActionConnectToDB(Action):
 #         dispatcher.utter_message(template="utter_default")
 #         return [UserUtteranceReverted()]
 
-cl
     
 
 class ActionRwoStageFallback(Action):
