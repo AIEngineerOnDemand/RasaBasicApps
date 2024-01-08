@@ -65,13 +65,18 @@ rules:
 # - rule: Ask again if the intent is not recognized
 #   steps:
 #    - intent: nlu_fallback
-#    - action: utter_ask_again
+#    - action: utter_default_ask_rephrase
 
-- rule: Handle the fallback intent
-  steps:
-   - intent: nlu_fallback
-   - action: action_default_fallback   
+# - rule: Handle the fallback intent
+#   steps:
+#    - intent: nlu_fallback
+#    - action: action_default_fallback   
 
+- rule: Two-stage fallback policy
+  steps:    
+  - intent: nlu_fallback
+  - action: action_two_stage_fallback
+  - active_loop: action_two_stage_fallback
 
 - rule: Reset form if the user says 'no' when asked for affirmation
   condition:
