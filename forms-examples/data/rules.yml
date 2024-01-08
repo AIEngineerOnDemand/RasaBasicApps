@@ -62,10 +62,15 @@ rules:
 
 
 # add a rule to rephrase the question if the intent has low confidence
-- rule: Ask again if the intent is not recognized
+# - rule: Ask again if the intent is not recognized
+#   steps:
+#    - intent: nlu_fallback
+#    - action: utter_ask_again
+
+- rule: Handle the fallback intent
   steps:
    - intent: nlu_fallback
-   - action: utter_ask_again
+   - action: action_default_fallback   
 
 
 - rule: Reset form if the user says 'no' when asked for affirmation
