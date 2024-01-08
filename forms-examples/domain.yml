@@ -99,6 +99,7 @@ actions:
 - utter_submit_form
 #- action_default_fallback
 - action_two_stage_fallback
+- action_save_to_db
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
