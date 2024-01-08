@@ -2,12 +2,24 @@ from typing import Any, Text, Dict, List, Optional
 from rasa_sdk import Tracker, Action
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet,FollowupAction,Form
+from rasa_sdk.events import SlotSet,FollowupAction,Form, UserUtteranceReverted
 from rasa_sdk.interfaces import EventType
 from rasa_sdk.types import DomainDict
 
 def clean_name(name):
     return "".join([c for c in name if c.isalpha()])
+
+class ActionDefaultFallback(Action):
+    def name(self) -> Text:
+        return "action_default_fallback"
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(template="utter_default")
+        return [UserUtteranceReverted()]
+
 
 class ActionCheckIfFirstNameIsKnown(Action):
     def name(self) -> Text:
@@ -182,7 +194,7 @@ class ActionSubmit(Action):
         return []
     
 
-    class ActionResetForm(Action):
+class ActionResetForm(Action):
         def name(self) -> Text:
             return "action_reset_form"
 
@@ -199,3 +211,5 @@ class ActionSubmit(Action):
                 SlotSet("number", None),  # Reset the 'number' slot
                 SlotSet("confirm_first_name", None),  # Reset the 'confirm_first_name' slot
             ]
+            
+            
