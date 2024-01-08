@@ -77,7 +77,7 @@ responses:
   utter_ask_again:
   - text: I'm sorry, I didn't understand that. Can you rephrase or repeat?
   utter_default:
-  - text: Sorry, I didn't get that. Can you rephrase?
+  - text: Sorry I cannot help you with that. Please try something else.
   utter_default_ask_rephrase:
   - text: Sorry can you rephrase?
   utter_submit_form:
@@ -102,6 +102,7 @@ actions:
 - utter_submit_form
 - utter_default_ask_rephrase
 - utter_default
+- action_default_fallback
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
