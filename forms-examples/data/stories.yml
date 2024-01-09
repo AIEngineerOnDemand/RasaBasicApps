@@ -34,6 +34,12 @@ stories:
     - confirm_first_name: John
   - action: utter_welcome_to_our_products
 
+- story: confirm information and ask for anything else
+  steps:
+  - action: utter_confirm_info
+  - intent: affirm
+  - action: utter_anything_else  
+
 - story: start wih name
   steps:
   - intent: inform
@@ -52,6 +58,18 @@ stories:
   - slot_was_set:
     - confirm_first_name: null
 
+
+- story: save_to_db
+  steps:
+  - checkpoint: start_save_to_db
+  - action: action_submit
+  - action: utter_confirm_info
+  - intent: affirm
+  - action: utter_anything_else
+  - intent: deny
+  - action: action_save_to_db
+  - action: utter_goodbye_confirmation
+  - checkpoint: end_save_to_db- 
 
 
 - story: contact form
@@ -78,8 +96,9 @@ stories:
   - active_loop: null 
   - slot_was_set:
     - requested_slot: null
-  - action: action_submit 
-  - action: utter_confirm_info      
+  - checkpoint: start_save_to_db
+  - checkpoint: end_save_to_db
+
 
 
  
@@ -208,13 +227,9 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: action_submit
-  - action: utter_confirm_info
-  - intent: affirm
-  - action: utter_anything_else
-  - intent: deny
-  - action: utter_goodbye_confirmation
-  - action: action_save_to_db
+  - checkpoint: start_save_to_db
+  - checkpoint: end_save_to_db
+
 
 - story: interactive_story_number_four
   steps:
@@ -249,19 +264,8 @@ stories:
     - requested_slot: null
   - action: contact_form 
   - active_loop: null
-  - action: action_submit
-  - action: utter_confirm_info
-  - intent: affirm
-  - action: utter_anything_else
-  - intent: deny
-  - action: utter_goodbye_confirmation
-  - action: action_save_to_db
-
-- story: confirm information and ask for anything else
-  steps:
-  - action: utter_confirm_info
-  - intent: affirm
-  - action: utter_anything_else
+  - checkpoint: start_save_to_db
+  - checkpoint: end_save_to_db
 
 
 - story: interactive_story_number_five
@@ -300,11 +304,6 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - action: contact_form
-  - active_loop: null
-  - action: action_submit
-  - action: utter_confirm_info
-  - intent: affirm
-  - action: utter_anything_else
-  - intent: deny
-  - action: utter_goodbye_confirmation
-  - action: action_save_to_db
+  - checkpoint: start_save_to_db
+  - checkpoint: end_save_to_db
+
