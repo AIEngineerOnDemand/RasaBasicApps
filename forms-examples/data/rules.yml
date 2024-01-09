@@ -87,7 +87,7 @@ rules:
 
 - rule: User says stop or goodbye anytime during the form
   condition:
-  - active_loop: validate_contact_form
+  - active_loop: contact_form
   steps:
   - intent: goodbye
   - action: action_deactivate_loop
