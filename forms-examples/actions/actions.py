@@ -12,7 +12,7 @@ def clean_name(name):
     return "".join([c for c in name if c.isalpha()])
 
 # write an action function to connect to local host with users = "root" using PYMYSQL
-class ActionConnectToDB(Action):
+class ActionSaveToDB(Action):
     def name(self) -> Text:
         return "action_save_to_db"
     async def run(
