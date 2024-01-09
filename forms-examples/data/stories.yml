@@ -77,7 +77,9 @@ stories:
   - action: contact_form
   - active_loop: null 
   - slot_was_set:
-    - requested_slot: null    
+    - requested_slot: null
+  - action: action_submit 
+  - action: utter_confirm_info      
 
 
  
@@ -87,8 +89,8 @@ stories:
 - story: interactive_story_number_one
   steps:
   - intent: want_to_be_contacted
-  - action: contact_form
-  - active_loop: contact_form
+  - action: action_check_if_first_name_is_known
+  - action: action_check_confirm_first_name
   - slot_was_set:
     - requested_slot: first_name
   - intent: inform
@@ -120,21 +122,17 @@ stories:
   - slot_was_set:
     - number: '1223545666'
   - action: contact_form
-  - slot_was_set:
-    - number: '1223545666'
+  - active_loop: null
   - slot_was_set:
     - requested_slot: null
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: contact_form
-  - active_loop: null
   - action: action_submit
   - action: utter_confirm_info
   - intent: deny
   - action: action_reset_form
   - intent: goodbye
   - action: utter_goodbye
+
+
 - story: interactive_story_number_two
   steps:
   - intent: want_to_be_contacted
@@ -160,18 +158,12 @@ stories:
     - number: null
   - slot_was_set:
     - confirm_first_name: null
-  - action: contact_form
-  - active_loop: null
-  - action: contact_form
-  - active_loop: contact_form
-  - slot_was_set:
     - requested_slot: first_name
   - intent: goodbye
-  - slot_was_set:
-    - requested_slot: null
-  - action: contact_form
-  - active_loop: null  
+  - action: action_deactivate_loop
+  - active_loop: null
   - action: utter_goodbye
+
 
 - story: interactive_story_number_three
   steps:
