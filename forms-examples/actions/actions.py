@@ -1,13 +1,65 @@
 from typing import Any, Text, Dict, List, Optional
+from numpy import insert
 from rasa_sdk import Tracker, Action
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet,FollowupAction,Form
+from rasa_sdk.events import SlotSet,FollowupAction, ActiveLoop, UserUtteranceReverted
 from rasa_sdk.interfaces import EventType
 from rasa_sdk.types import DomainDict
+import pymysql as mysql
 
 def clean_name(name):
     return "".join([c for c in name if c.isalpha()])
+
+# write an action function to connect to local host with users = "root" using PYMYSQL
+class ActionSaveToDB(Action):
+    def name(self) -> Text:
+        return "action_save_to_db"
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        try:
+            mydb = mysql.connect(host="localhost",user="root",passwd="",database="rasa")
+            print("connected to database")
+            cur = mydb.cursor()
+            insert_query = "INSERT INTO users (name, email, number) VALUES (%s, %s, %s)"
+            data = (tracker.get_slot("first_name"), tracker.get_slot("email"), tracker.get_slot("number"))
+            cur.execute(insert_query, data) 
+            mydb.commit()
+            mydb.close()        
+            return []
+        except Exception as e:
+            print("Error while connecting to database", e)
+            return []
+
+
+# class ActionDefaultFallback(Action):
+#     def name(self) -> Text:
+#         return "action_default_fallback"
+#     async def run(
+#         self,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         dispatcher.utter_message(template="utter_default")
+#         return [UserUtteranceReverted()]
+
+    
+
+class ActionRwoStageFallback(Action):
+    def name(self) -> Text:
+        return "action_two_stage_fallback"
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(response="utter_ask_rephrase")
+        return [UserUtteranceReverted()]    
+
 
 class ActionCheckIfFirstNameIsKnown(Action):
     def name(self) -> Text:
@@ -182,7 +234,7 @@ class ActionSubmit(Action):
         return []
     
 
-    class ActionResetForm(Action):
+class ActionResetForm(Action):
         def name(self) -> Text:
             return "action_reset_form"
 
@@ -193,9 +245,11 @@ class ActionSubmit(Action):
             domain: Dict[Text, Any],
         ) -> List[Dict[Text, Any]]:
             return [
-                Form(None),  # Deactivate the form
+                ActiveLoop(None),  # Deactivate the form
                 SlotSet("first_name", None),  # Reset the 'first_name' slot
                 SlotSet("email", None),  # Reset the 'email' slot
                 SlotSet("number", None),  # Reset the 'number' slot
                 SlotSet("confirm_first_name", None),  # Reset the 'confirm_first_name' slot
             ]
+            
+            
